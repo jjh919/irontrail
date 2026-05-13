@@ -1,26 +1,46 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-mono-j), ui-monospace, monospace;
+  --font-serif: var(--font-fraunces), serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    background:
+      radial-gradient(120% 60% at 50% 0%, rgba(249, 115, 22, 0.12), transparent 60%),
+      radial-gradient(80% 40% at 100% 100%, rgba(220, 38, 38, 0.04), transparent 60%),
+      #0a0a0a;
+    color: #fafafa;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  *::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .forge-card {
+    background: linear-gradient(180deg, #18181b, #0f0f10);
+    border: 1px solid #27272a;
+  }
+  .forge-num {
+    text-shadow: 0 0 30px rgba(249, 115, 22, 0.45);
+  }
+  .grid-tex {
+    background-image: linear-gradient(
+      180deg,
+      transparent,
+      rgba(255, 255, 255, 0.015) 50%,
+      transparent
+    );
+  }
 }

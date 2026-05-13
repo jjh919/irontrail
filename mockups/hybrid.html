@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IronTrail · Hybrid (Forge × Calm)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&display=swap" rel="stylesheet" />
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  .font-mono-j { font-family: 'JetBrains Mono', monospace; }
+  .font-serif-f { font-family: 'Fraunces', serif; }
+
+  .phone {
+    width: 390px;
+    height: 820px;
+    border-radius: 48px;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), 0 0 0 8px #1a1a1a, 0 0 0 10px #2a2a2a;
+    overflow: hidden;
+    position: relative;
+  }
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 18px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 30px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 100;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .phone-screen::-webkit-scrollbar { width: 0; }
+
+  .forge-bg {
+    background:
+      radial-gradient(120% 60% at 50% 0%, rgba(249,115,22,0.18), transparent 60%),
+      radial-gradient(80% 40% at 100% 100%, rgba(220,38,38,0.08), transparent 60%),
+      #0a0a0a;
+  }
+  .forge-card {
+    background: linear-gradient(180deg, #18181b, #0f0f10);
+    border: 1px solid #27272a;
+  }
+  .forge-num { text-shadow: 0 0 30px rgba(249,115,22,0.45); }
+  .forge-ring {
+    background: conic-gradient(#f59e0b 0% 65%, #27272a 65% 100%);
+  }
+
+  .grid-tex {
+    background-image:
+      linear-gradient(180deg, transparent, rgba(255,255,255,0.015) 50%, transparent);
+  }
+</style>
+</head>
+<body class="bg-stone-900 min-h-screen flex flex-col items-center py-12 px-4">
+
+<header class="text-center mb-10">
+  <div class="text-[10px] uppercase tracking-[0.3em] text-stone-500">IronTrail</div>
+  <h1 class="font-serif-f text-3xl font-bold text-white mt-2">Forge × Calm</h1>
+  <p class="text-stone-400 text-sm mt-2 max-w-md mx-auto">단조의 비주얼 + 차분한 코치의 구조 — 진지하지만 압박감 없는 톤</p>
+</header>
+
+<div class="phone forge-bg">
+  <div class="phone-screen grid-tex">
+
+    <!-- Status bar spacer -->
+    <div class="h-14"></div>
+
+    <!-- Header (Calm structure, Forge palette) -->
+    <div class="px-6 pt-3 pb-3 flex items-center justify-between">
+      <div>
+        <div class="text-zinc-500 text-xs">좋은 아침이에요</div>
+        <div class="text-white text-lg font-semibold mt-0.5">민호님 <span class="text-amber-500">·</span></div>
+      </div>
+      <div class="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+        <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5"/></svg>
+      </div>
+    </div>
+
+    <!-- D-day hero card (Calm structure, Forge styling) -->
+    <div class="px-6 pt-3 pb-5">
+      <div class="forge-card rounded-3xl p-6 relative overflow-hidden">
+        <!-- amber glow circle replacing emerald -->
+        <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-amber-500/10 blur-xl"></div>
+        <div class="absolute -right-2 top-2 text-amber-500 text-xs font-medium tracking-wide">속초 · Olympic</div>
+
+        <div class="text-zinc-500 text-xs mb-1 relative">대회까지</div>
+        <div class="flex items-baseline gap-2 relative">
+          <div class="font-mono-j text-white text-6xl font-bold tracking-tighter forge-num leading-none">87</div>
+          <div class="text-zinc-400 text-sm">일 남았어요</div>
+        </div>
+
+        <div class="mt-5 flex items-center gap-2 relative">
+          <div class="flex-1 bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-gradient-to-r from-amber-500 to-amber-400 h-full rounded-full shadow-[0_0_8px_rgba(245,158,11,0.6)]" style="width: 50%"></div>
+          </div>
+          <div class="text-zinc-500 text-[11px] font-mono-j">BUILD 8/16</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's workout (Calm structure, Forge palette) -->
+    <div class="px-6 pb-5">
+      <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-3 px-1">오늘의 훈련</div>
+      <div class="forge-card rounded-3xl p-6">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-3xl">🏊</div>
+          <div class="flex-1">
+            <div class="text-white font-bold text-base">인터벌 수영</div>
+            <div class="text-zinc-500 text-xs mt-0.5">45분 · 중강도 ●●●○○</div>
+          </div>
+        </div>
+
+        <div class="mt-5 bg-zinc-950/80 border border-zinc-800 rounded-2xl p-4">
+          <div class="text-zinc-300 text-sm leading-relaxed">
+            100m × 10세트, 인터벌 20초<br/>
+            목표 페이스 <span class="text-amber-400 font-mono-j font-bold">1:45/100m</span>
+          </div>
+        </div>
+
+        <div class="mt-5 flex gap-2">
+          <button class="flex-1 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-sm py-3.5 rounded-2xl shadow-lg shadow-amber-500/20">시작하기</button>
+          <button class="px-5 py-3.5 text-zinc-400 text-sm bg-zinc-900 border border-zinc-800 rounded-2xl">미루기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Condition (Calm structure, Forge palette) -->
+    <div class="px-6 pb-5">
+      <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-3 px-1">컨디션</div>
+      <div class="forge-card rounded-3xl p-5">
+        <div class="flex items-center justify-around">
+          <div class="text-center">
+            <div class="text-2xl mb-1">😴</div>
+            <div class="text-white font-mono-j font-bold">7.2<span class="text-xs text-zinc-500 font-sans">h</span></div>
+            <div class="text-zinc-500 text-[10px] mt-0.5">수면</div>
+          </div>
+          <div class="w-px h-10 bg-zinc-800"></div>
+          <div class="text-center">
+            <div class="text-2xl mb-1">⚡</div>
+            <div class="text-white font-mono-j font-bold">3<span class="text-xs text-zinc-500 font-sans">/10</span></div>
+            <div class="text-zinc-500 text-[10px] mt-0.5">피로</div>
+          </div>
+          <div class="w-px h-10 bg-zinc-800"></div>
+          <div class="text-center">
+            <div class="text-2xl mb-1">⚖️</div>
+            <div class="text-white font-mono-j font-bold">68.4<span class="text-xs text-zinc-500 font-sans">kg</span></div>
+            <div class="text-zinc-500 text-[10px] mt-0.5">체중</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Week progress (Calm structure, Forge palette) -->
+    <div class="px-6 pb-5">
+      <div class="forge-card rounded-3xl p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="text-white font-semibold">이번 주 잘 가고 있어요</div>
+            <div class="text-zinc-500 text-xs mt-0.5">계획 6회 중 4회 완료</div>
+          </div>
+          <div class="relative w-14 h-14">
+            <div class="absolute inset-0 rounded-full forge-ring shadow-[0_0_16px_rgba(245,158,11,0.3)]"></div>
+            <div class="absolute inset-1.5 bg-zinc-950 rounded-full flex items-center justify-center">
+              <span class="text-amber-400 font-mono-j font-bold text-sm">65%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-end gap-1.5 mt-4">
+          <div class="flex-1 flex flex-col items-center gap-1.5">
+            <div class="w-full h-10 bg-amber-500/40 rounded-lg"></div>
+            <div class="text-zinc-500 text-[10px] font-mono-j">월</div>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1.5">
+            <div class="w-full h-14 bg-amber-500/70 rounded-lg"></div>
+            <div class="text-zinc-500 text-[10px] font-mono-j">화</div>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1.5">
+            <div class="w-full h-2 bg-zinc-800 rounded-lg"></div>
+            <div class="text-zinc-500 text-[10px] font-mono-j">수</div>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1.5">
+            <div class="w-full h-12 bg-amber-500/60 rounded-lg"></div>
+            <div class="text-zinc-500 text-[10px] font-mono-j">목</div>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1.5">
+            <div class="w-full h-8 bg-amber-500 rounded-lg ring-2 ring-amber-500/30 ring-offset-2 ring-offset-zinc-950 shadow-[0_0_10px_rgba(245,158,11,0.5)]"></div>
+            <div class="text-amber-400 text-[10px] font-mono-j font-bold">금</div>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1.5">
+            <div class="w-full h-2 bg-zinc-900 border border-zinc-800 rounded-lg"></div>
+            <div class="text-zinc-500 text-[10px] font-mono-j">토</div>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1.5">
+            <div class="w-full h-2 bg-zinc-900 border border-zinc-800 rounded-lg"></div>
+            <div class="text-zinc-500 text-[10px] font-mono-j">일</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- spacer for bottom nav -->
+    <div class="h-28"></div>
+
+    <!-- Bottom nav (Calm structure, Forge palette) -->
+    <div class="absolute bottom-0 left-0 right-0 bg-zinc-950/95 backdrop-blur-xl border-t border-zinc-800 px-6 py-3 flex items-center justify-around">
+      <button class="flex flex-col items-center gap-0.5 text-amber-500">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9-2 0v9h-5v-7H10v7H5v-9z"/></svg>
+        <span class="text-[9px] font-semibold">홈</span>
+      </button>
+      <button class="flex flex-col items-center gap-0.5 text-zinc-500">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M3 10h18M8 2v4M16 2v4"/></svg>
+        <span class="text-[9px]">캘린더</span>
+      </button>
+      <button class="w-12 h-12 -mt-6 rounded-full bg-amber-500 text-zinc-950 flex items-center justify-center shadow-xl shadow-amber-500/40">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button class="flex flex-col items-center gap-0.5 text-zinc-500">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M4 19V5m8 14V9m8 10V13"/></svg>
+        <span class="text-[9px]">분석</span>
+      </button>
+      <button class="flex flex-col items-center gap-0.5 text-zinc-500">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+        <span class="text-[9px]">프로필</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Notes -->
+<section class="mt-10 max-w-md text-stone-400 text-sm space-y-3">
+  <div class="flex gap-3">
+    <span class="font-mono-j text-amber-500 shrink-0">→</span>
+    <p>Forge의 <span class="text-white">다크 배경 + 호박색 글로우 + 모노 숫자</span>를 유지하면서</p>
+  </div>
+  <div class="flex gap-3">
+    <span class="font-mono-j text-amber-500 shrink-0">→</span>
+    <p>Calm Trail의 <span class="text-white">친근한 인사·둥근 카드·진행률 바·요일 막대그래프</span> 구조를 입혔어요</p>
+  </div>
+  <div class="flex gap-3">
+    <span class="font-mono-j text-amber-500 shrink-0">→</span>
+    <p>"진지하지만 압박감 없는" 톤 — 새벽 5시에 켜도 눈이 편하고, 격려 문구는 그대로</p>
+  </div>
+</section>
+
+</body>
+</html>

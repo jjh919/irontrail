@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IronTrail · All Screens</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&display=swap" rel="stylesheet" />
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  .font-mono-j { font-family: 'JetBrains Mono', monospace; }
+  .font-serif-f { font-family: 'Fraunces', serif; }
+
+  .phone {
+    width: 390px; height: 820px;
+    border-radius: 48px;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), 0 0 0 8px #1a1a1a, 0 0 0 10px #2a2a2a;
+    overflow: hidden; position: relative; flex-shrink: 0;
+  }
+  .phone::before {
+    content: ''; position: absolute;
+    top: 18px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 30px;
+    background: #000; border-radius: 20px; z-index: 100;
+  }
+  .phone-screen { width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; }
+  .phone-screen::-webkit-scrollbar { width: 0; }
+
+  .forge-bg {
+    background:
+      radial-gradient(120% 60% at 50% 0%, rgba(249,115,22,0.18), transparent 60%),
+      radial-gradient(80% 40% at 100% 100%, rgba(220,38,38,0.06), transparent 60%),
+      #0a0a0a;
+  }
+  .forge-card { background: linear-gradient(180deg, #18181b, #0f0f10); border: 1px solid #27272a; }
+  .grid-tex { background-image: linear-gradient(180deg, transparent, rgba(255,255,255,0.015) 50%, transparent); }
+
+  .scroll-x::-webkit-scrollbar { height: 12px; }
+  .scroll-x::-webkit-scrollbar-track { background: #1c1917; border-radius: 6px; }
+  .scroll-x::-webkit-scrollbar-thumb { background: #44403c; border-radius: 6px; }
+</style>
+</head>
+<body class="bg-stone-900 min-h-screen py-12">
+
+<header class="text-center mb-12 px-6">
+  <div class="text-[10px] uppercase tracking-[0.3em] text-stone-500">IronTrail</div>
+  <h1 class="font-serif-f text-3xl font-bold text-white mt-2">전체 화면 시안</h1>
+  <p class="text-stone-400 text-sm mt-2 max-w-md mx-auto">기록 입력 · 식사 · 분석 · 장비 · 설정 — 좌우 스크롤로 확인</p>
+</header>
+
+<div class="overflow-x-auto pb-10 scroll-x">
+  <div class="flex gap-10 min-w-max px-12">
+
+    <!-- ============== -->
+    <!-- 1. 운동 기록   -->
+    <!-- ============== -->
+    <div>
+      <div class="mb-5 flex items-baseline gap-3">
+        <span class="font-mono-j text-xs text-stone-500">01</span>
+        <h2 class="font-serif-f text-xl font-bold text-white">운동 기록</h2>
+        <span class="text-xs text-stone-500">— 빠른 입력</span>
+      </div>
+
+      <div class="phone forge-bg">
+        <div class="phone-screen grid-tex">
+          <div class="h-14"></div>
+
+          <!-- Header -->
+          <div class="px-6 pt-3 pb-4 flex items-center justify-between">
+            <button class="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <div class="text-white font-semibold">운동 기록</div>
+            <button class="text-amber-500 text-sm font-semibold">템플릿</button>
+          </div>
+
+          <!-- Sport selector -->
+          <div class="px-6 pb-4">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2.5">종목</div>
+            <div class="grid grid-cols-5 gap-2">
+              <button class="aspect-square rounded-2xl bg-amber-500/15 border border-amber-500/40 flex flex-col items-center justify-center gap-1 shadow-[0_0_10px_rgba(245,158,11,0.25)]">
+                <span class="text-2xl">🚴</span>
+                <span class="text-amber-400 text-[9px] font-bold">사이클</span>
+              </button>
+              <button class="aspect-square rounded-2xl bg-zinc-900 border border-zinc-800 flex flex-col items-center justify-center gap-1">
+                <span class="text-2xl opacity-50">🏊</span>
+                <span class="text-zinc-500 text-[9px]">수영</span>
+              </button>
+              <button class="aspect-square rounded-2xl bg-zinc-900 border border-zinc-800 flex flex-col items-center justify-center gap-1">
+                <span class="text-2xl opacity-50">🏃</span>
+                <span class="text-zinc-500 text-[9px]">러닝</span>
+              </button>
+              <button class="aspect-square rounded-2xl bg-zinc-900 border border-zinc-800 flex flex-col items-center justify-center gap-1">
+                <span class="text-2xl opacity-50">🏋️</span>
+                <span class="text-zinc-500 text-[9px]">웨이트</span>
+              </button>
+              <button class="aspect-square rounded-2xl bg-zinc-900 border border-zinc-800 flex flex-col items-center justify-center gap-1">
+                <span class="text-2xl opacity-50">+</span>
+                <span class="text-zinc-500 text-[9px]">기타</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Date/time -->
+          <div class="px-6 pb-4">
+            <div class="forge-card rounded-2xl p-4 flex items-center justify-between">
+              <div>
+                <div class="text-zinc-500 text-[10px] uppercase">언제</div>
+                <div class="text-white text-sm font-semibold mt-0.5">오늘 · 5/13 화 · 06:30</div>
+              </div>
+              <button class="text-zinc-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <!-- Main metrics -->
+          <div class="px-6 pb-4">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2.5">측정</div>
+            <div class="grid grid-cols-2 gap-2">
+              <div class="forge-card rounded-2xl p-4">
+                <div class="text-zinc-500 text-[10px] uppercase mb-1">시간</div>
+                <div class="flex items-baseline gap-1">
+                  <input class="bg-transparent text-white font-mono-j font-bold text-2xl w-16 outline-none" value="1:25" />
+                  <span class="text-zinc-500 text-xs">h:mm</span>
+                </div>
+              </div>
+              <div class="forge-card rounded-2xl p-4">
+                <div class="text-zinc-500 text-[10px] uppercase mb-1">거리</div>
+                <div class="flex items-baseline gap-1">
+                  <input class="bg-transparent text-white font-mono-j font-bold text-2xl w-16 outline-none" value="42.5" />
+                  <span class="text-zinc-500 text-xs">km</span>
+                </div>
+              </div>
+              <div class="forge-card rounded-2xl p-4">
+                <div class="text-zinc-500 text-[10px] uppercase mb-1">평균 심박</div>
+                <div class="flex items-baseline gap-1">
+                  <input class="bg-transparent text-white font-mono-j font-bold text-2xl w-16 outline-none" value="142" />
+                  <span class="text-zinc-500 text-xs">bpm</span>
+                </div>
+              </div>
+              <div class="forge-card rounded-2xl p-4">
+                <div class="text-zinc-500 text-[10px] uppercase mb-1">강도 RPE</div>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-white font-mono-j font-bold text-2xl">6</span>
+                  <span class="text-zinc-500 text-xs">/10</span>
+                </div>
+                <div class="flex gap-0.5 mt-2">
+                  <div class="flex-1 h-1 bg-amber-500 rounded"></div>
+                  <div class="flex-1 h-1 bg-amber-500 rounded"></div>
+                  <div class="flex-1 h-1 bg-amber-500 rounded"></div>
+                  <div class="flex-1 h-1 bg-amber-500 rounded"></div>
+                  <div class="flex-1 h-1 bg-amber-500 rounded"></div>
+                  <div class="flex-1 h-1 bg-amber-500 rounded"></div>
+                  <div class="flex-1 h-1 bg-zinc-800 rounded"></div>
+                  <div class="flex-1 h-1 bg-zinc-800 rounded"></div>
+                  <div class="flex-1 h-1 bg-zinc-800 rounded"></div>
+                  <div class="flex-1 h-1 bg-zinc-800 rounded"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="px-6 pb-4">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2.5">메모</div>
+            <div class="forge-card rounded-2xl p-4 min-h-[80px]">
+              <div class="text-zinc-300 text-sm">Z2 유지하면서 LSD 라이딩. 후반 다리 좀 무거워짐.</div>
+            </div>
+          </div>
+
+          <!-- Link to planned + bike -->
+          <div class="px-6 pb-4 space-y-2">
+            <div class="forge-card rounded-2xl p-3 flex items-center gap-3">
+              <div class="w-7 h-7 rounded-lg bg-amber-500/15 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div class="flex-1">
+                <div class="text-white text-xs font-semibold">계획된 세션과 매칭</div>
+                <div class="text-zinc-500 text-[10px]">목요일 · LSD 라이딩</div>
+              </div>
+            </div>
+            <div class="forge-card rounded-2xl p-3 flex items-center gap-3">
+              <div class="w-7 h-7 rounded-lg bg-zinc-800 flex items-center justify-center text-xs">🚴</div>
+              <div class="flex-1">
+                <div class="text-white text-xs font-semibold">Cervelo P5</div>
+                <div class="text-zinc-500 text-[10px]">총 3,240km · 체인 1,820km</div>
+              </div>
+              <button class="text-zinc-500 text-xs">변경</button>
+            </div>
+          </div>
+
+          <div class="h-32"></div>
+
+          <!-- Submit -->
+          <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-zinc-950 via-zinc-950/95 to-transparent">
+            <button class="w-full bg-amber-500 text-zinc-950 font-bold py-4 rounded-2xl shadow-lg shadow-amber-500/30">기록 저장</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5 max-w-[390px] text-sm text-stone-400">
+        <p>종목 한 번 탭 → 시간·거리·심박만 채우면 끝. <span class="text-white">자동으로 계획 세션과 매칭</span>되고, 자전거 선택 시 부품 마일리지 누적.</p>
+      </div>
+    </div>
+
+    <!-- ============== -->
+    <!-- 2. 식사 입력   -->
+    <!-- ============== -->
+    <div>
+      <div class="mb-5 flex items-baseline gap-3">
+        <span class="font-mono-j text-xs text-stone-500">02</span>
+        <h2 class="font-serif-f text-xl font-bold text-white">식사 기록</h2>
+        <span class="text-xs text-stone-500">— AI 분석</span>
+      </div>
+
+      <div class="phone forge-bg">
+        <div class="phone-screen grid-tex">
+          <div class="h-14"></div>
+
+          <div class="px-6 pt-3 pb-4 flex items-center justify-between">
+            <button class="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <div class="text-white font-semibold">식사 기록</div>
+            <div class="w-9"></div>
+          </div>
+
+          <!-- Meal type -->
+          <div class="px-6 pb-3">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-full p-1 flex">
+              <button class="flex-1 text-zinc-500 text-xs py-2 rounded-full">아침</button>
+              <button class="flex-1 bg-amber-500 text-zinc-950 font-bold text-xs py-2 rounded-full">점심</button>
+              <button class="flex-1 text-zinc-500 text-xs py-2 rounded-full">간식</button>
+              <button class="flex-1 text-zinc-500 text-xs py-2 rounded-full">저녁</button>
+            </div>
+            <div class="mt-2 text-zinc-500 text-xs text-center font-mono-j">오늘 12:40</div>
+          </div>
+
+          <!-- Text input -->
+          <div class="px-6 pb-3">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2 px-1">먹은 것</div>
+            <div class="forge-card rounded-2xl p-4">
+              <div class="text-white text-sm leading-relaxed">
+                현미밥 1공기<br/>
+                닭가슴살 150g<br/>
+                고구마 200g<br/>
+                계란후라이 2개<br/>
+                바나나 1개
+              </div>
+              <div class="mt-3 pt-3 border-t border-zinc-800 flex items-center justify-between">
+                <button class="text-zinc-500 text-xs flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                  사진 첨부
+                </button>
+                <div class="text-amber-500 text-[10px] font-mono-j flex items-center gap-1.5">
+                  <div class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></div>
+                  AI 분석 완료
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI parsed nutrition -->
+          <div class="px-6 pb-3">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2 px-1 flex items-center gap-2">
+              <span>영양 분석</span>
+              <div class="h-px flex-1 bg-zinc-800"></div>
+              <span class="text-amber-500/70">Claude · 수정 가능</span>
+            </div>
+            <div class="forge-card rounded-2xl p-5">
+              <div class="flex items-baseline gap-2 mb-4">
+                <div class="font-mono-j text-white font-bold text-4xl">820</div>
+                <div class="text-zinc-500 text-sm">kcal</div>
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <div class="flex items-baseline justify-between mb-1">
+                    <div class="flex items-baseline gap-2">
+                      <div class="w-2 h-2 rounded-full bg-amber-500"></div>
+                      <span class="text-zinc-300 text-xs">탄수화물</span>
+                    </div>
+                    <span class="text-white font-mono-j font-bold text-xs">115<span class="text-zinc-500 font-sans">g · 56%</span></span>
+                  </div>
+                  <div class="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-amber-500 rounded-full" style="width: 56%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-baseline justify-between mb-1">
+                    <div class="flex items-baseline gap-2">
+                      <div class="w-2 h-2 rounded-full bg-sky-400"></div>
+                      <span class="text-zinc-300 text-xs">단백질</span>
+                    </div>
+                    <span class="text-white font-mono-j font-bold text-xs">62<span class="text-zinc-500 font-sans">g · 30%</span></span>
+                  </div>
+                  <div class="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-sky-400 rounded-full" style="width: 30%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-baseline justify-between mb-1">
+                    <div class="flex items-baseline gap-2">
+                      <div class="w-2 h-2 rounded-full bg-rose-400"></div>
+                      <span class="text-zinc-300 text-xs">지방</span>
+                    </div>
+                    <span class="text-white font-mono-j font-bold text-xs">13<span class="text-zinc-500 font-sans">g · 14%</span></span>
+                  </div>
+                  <div class="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-rose-400 rounded-full" style="width: 14%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI coaching -->
+          <div class="px-6 pb-3">
+            <div class="rounded-2xl p-4 bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/30">
+              <div class="flex items-start gap-2.5">
+                <div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0 mt-0.5">
+                  <span class="text-xs">💡</span>
+                </div>
+                <div class="flex-1">
+                  <div class="text-amber-400 text-[11px] uppercase tracking-wider font-bold mb-1">코칭</div>
+                  <p class="text-zinc-300 text-sm leading-relaxed">
+                    오늘 저녁 브릭 세션 예정이에요. 탄수화물 충분히 들어왔고, 단백질도 OK. <span class="text-white">15시쯤 바나나·견과 간식</span> 추천해요.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hydration -->
+          <div class="px-6 pb-3">
+            <div class="forge-card rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-2">
+                <div class="text-zinc-300 text-sm font-semibold flex items-center gap-2">💧 수분</div>
+                <div class="text-white font-mono-j font-bold text-sm">1.2L <span class="text-zinc-500 text-xs font-sans">/ 3.0L</span></div>
+              </div>
+              <div class="h-1.5 bg-zinc-800 rounded-full overflow-hidden mb-3">
+                <div class="h-full bg-sky-400 rounded-full" style="width: 40%"></div>
+              </div>
+              <div class="flex gap-2">
+                <button class="flex-1 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 py-2 rounded-lg">+250ml</button>
+                <button class="flex-1 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 py-2 rounded-lg">+500ml</button>
+                <button class="flex-1 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 py-2 rounded-lg">+1L</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-28"></div>
+
+          <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-zinc-950 via-zinc-950/95 to-transparent">
+            <button class="w-full bg-amber-500 text-zinc-950 font-bold py-4 rounded-2xl shadow-lg shadow-amber-500/30">저장</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5 max-w-[390px] text-sm text-stone-400">
+        <p>텍스트로 적기만 하면 <span class="text-white">AI가 칼로리·탄단지 자동 계산</span>. 운동 일정 보고 <span class="text-white">다음 끼니까지 코칭</span>해줌.</p>
+      </div>
+    </div>
+
+    <!-- ============== -->
+    <!-- 3. 분석        -->
+    <!-- ============== -->
+    <div>
+      <div class="mb-5 flex items-baseline gap-3">
+        <span class="font-mono-j text-xs text-stone-500">03</span>
+        <h2 class="font-serif-f text-xl font-bold text-white">분석</h2>
+        <span class="text-xs text-stone-500">— 흐름·밸런스·기록</span>
+      </div>
+
+      <div class="phone forge-bg">
+        <div class="phone-screen grid-tex">
+          <div class="h-14"></div>
+
+          <div class="px-6 pt-3 pb-3 flex items-center justify-between">
+            <div>
+              <div class="text-zinc-500 text-xs">분석</div>
+              <div class="text-white text-lg font-semibold mt-0.5">최근 12주</div>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 rounded-full px-3 py-1.5 text-zinc-400 text-xs">12W ▾</div>
+          </div>
+
+          <!-- Form score -->
+          <div class="px-6 pb-4">
+            <div class="forge-card rounded-3xl p-5 relative overflow-hidden">
+              <div class="absolute -right-10 -top-10 w-32 h-32 rounded-full bg-amber-500/10 blur-xl"></div>
+              <div class="text-zinc-500 text-[10px] uppercase tracking-widest mb-1 relative">현재 폼 (TSB)</div>
+              <div class="flex items-end gap-3 relative">
+                <div class="font-mono-j text-white text-5xl font-bold tracking-tighter">+8</div>
+                <div class="pb-2 text-amber-400 text-sm font-semibold">Fresh</div>
+              </div>
+              <div class="mt-3 grid grid-cols-2 gap-3 pt-3 border-t border-zinc-800 relative">
+                <div>
+                  <div class="text-zinc-500 text-[10px] uppercase">Fitness (CTL)</div>
+                  <div class="text-white font-mono-j font-bold text-base mt-0.5">62 <span class="text-amber-400 text-xs">↑</span></div>
+                </div>
+                <div>
+                  <div class="text-zinc-500 text-[10px] uppercase">Fatigue (ATL)</div>
+                  <div class="text-white font-mono-j font-bold text-base mt-0.5">54</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fitness curve chart -->
+          <div class="px-6 pb-4">
+            <div class="forge-card rounded-3xl p-4">
+              <div class="flex items-baseline justify-between mb-3">
+                <div class="text-white text-sm font-semibold">피트니스 곡선</div>
+                <div class="flex gap-3 text-[10px]">
+                  <div class="flex items-center gap-1"><div class="w-2.5 h-0.5 bg-amber-500"></div><span class="text-zinc-400">CTL</span></div>
+                  <div class="flex items-center gap-1"><div class="w-2.5 h-0.5 bg-rose-400"></div><span class="text-zinc-400">ATL</span></div>
+                </div>
+              </div>
+              <svg viewBox="0 0 320 120" class="w-full">
+                <!-- Grid -->
+                <line x1="0" y1="30" x2="320" y2="30" stroke="#27272a" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <line x1="0" y1="60" x2="320" y2="60" stroke="#27272a" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <line x1="0" y1="90" x2="320" y2="90" stroke="#27272a" stroke-width="0.5" stroke-dasharray="2,2"/>
+
+                <!-- ATL (red, more volatile) -->
+                <path d="M0,95 L30,88 L60,75 L90,82 L120,65 L150,72 L180,50 L210,58 L240,42 L270,48 L300,40 L320,46"
+                      fill="none" stroke="#fb7185" stroke-width="1.5"/>
+                <!-- CTL (amber, smooth) -->
+                <path d="M0,100 L30,92 L60,82 L90,75 L120,68 L150,60 L180,55 L210,50 L240,46 L270,42 L300,40 L320,38"
+                      fill="none" stroke="#f59e0b" stroke-width="2"/>
+                <path d="M0,100 L30,92 L60,82 L90,75 L120,68 L150,60 L180,55 L210,50 L240,46 L270,42 L300,40 L320,38 L320,120 L0,120 Z"
+                      fill="url(#g1)" opacity="0.3"/>
+
+                <!-- Today marker -->
+                <circle cx="320" cy="38" r="3" fill="#f59e0b"/>
+                <circle cx="320" cy="46" r="3" fill="#fb7185"/>
+
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#f59e0b"/>
+                    <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="flex justify-between mt-2 text-[9px] text-zinc-600 font-mono-j">
+                <span>3월</span><span>4월</span><span>5월</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sport balance -->
+          <div class="px-6 pb-4">
+            <div class="forge-card rounded-3xl p-5">
+              <div class="text-white text-sm font-semibold mb-4">종목 밸런스 · 12주</div>
+              <div class="flex items-center gap-5">
+                <!-- Donut -->
+                <div class="relative w-24 h-24 shrink-0">
+                  <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#27272a" stroke-width="6"/>
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#38bdf8" stroke-width="6"
+                            stroke-dasharray="22 88" stroke-dashoffset="0"/>
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#f59e0b" stroke-width="6"
+                            stroke-dasharray="42 88" stroke-dashoffset="-22"/>
+                    <circle cx="18" cy="18" r="14" fill="none" stroke="#fb7185" stroke-width="6"
+                            stroke-dasharray="20 88" stroke-dashoffset="-64"/>
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <div class="font-mono-j text-white font-bold text-sm">76h</div>
+                    <div class="text-zinc-500 text-[9px]">총합</div>
+                  </div>
+                </div>
+                <div class="flex-1 space-y-2 text-xs">
+                  <div class="flex items-center justify-between"><div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-sky-400"></div><span class="text-zinc-300">수영</span></div><span class="text-white font-mono-j font-bold">18h · 25%</span></div>
+                  <div class="flex items-center justify-between"><div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-amber-500"></div><span class="text-zinc-300">사이클</span></div><span class="text-white font-mono-j font-bold">34h · 48%</span></div>
+                  <div class="flex items-center justify-between"><div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-400"></div><span class="text-zinc-300">러닝</span></div><span class="text-white font-mono-j font-bold">16h · 22%</span></div>
+                  <div class="flex items-center justify-between"><div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-violet-400"></div><span class="text-zinc-300">웨이트</span></div><span class="text-white font-mono-j font-bold">5h · 5%</span></div>
+                </div>
+              </div>
+              <div class="mt-3 pt-3 border-t border-zinc-800 text-[11px] text-zinc-400 flex items-start gap-1.5">
+                <span class="text-amber-500">→</span>
+                <span><span class="text-white">수영</span> 비중이 권장(30%) 대비 낮아요. 다음 주 1세션 추가 고려.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRs -->
+          <div class="px-6 pb-4">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2.5 px-1 flex items-center gap-2">
+              <span>개인 기록 (PR)</span>
+              <div class="flex-1 h-px bg-zinc-800"></div>
+            </div>
+            <div class="space-y-2">
+              <div class="forge-card rounded-2xl p-3 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-rose-400/10 border border-rose-400/20 flex items-center justify-center">🏃</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm font-semibold">5km 러닝</div>
+                  <div class="text-zinc-500 text-[10px] font-mono-j">5/10 · 4분 단축</div>
+                </div>
+                <div class="text-amber-400 font-mono-j font-bold text-sm">21:48 <span class="text-amber-500 text-xs">★</span></div>
+              </div>
+              <div class="forge-card rounded-2xl p-3 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-sky-400/10 border border-sky-400/20 flex items-center justify-center">🏊</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm font-semibold">1500m 수영</div>
+                  <div class="text-zinc-500 text-[10px] font-mono-j">4/28</div>
+                </div>
+                <div class="text-white font-mono-j font-bold text-sm">26:12</div>
+              </div>
+              <div class="forge-card rounded-2xl p-3 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">🚴</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm font-semibold">40km 사이클</div>
+                  <div class="text-zinc-500 text-[10px] font-mono-j">5/2</div>
+                </div>
+                <div class="text-white font-mono-j font-bold text-sm">1:08:30</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-28"></div>
+
+          <div class="absolute bottom-0 left-0 right-0 bg-zinc-950/95 backdrop-blur-xl border-t border-zinc-800 px-6 py-3 flex items-center justify-around">
+            <button class="flex flex-col items-center gap-0.5 text-zinc-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M3 12l9-9 9 9M5 10v10h14V10"/></svg><span class="text-[9px]">홈</span></button>
+            <button class="flex flex-col items-center gap-0.5 text-zinc-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg><span class="text-[9px]">캘린더</span></button>
+            <button class="w-12 h-12 -mt-6 rounded-full bg-amber-500 text-zinc-950 flex items-center justify-center shadow-xl shadow-amber-500/40"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></button>
+            <button class="flex flex-col items-center gap-0.5 text-amber-500"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M4 19V5h3v14H4zm6 0V9h3v10h-3zm6 0v-6h3v6h-3z"/></svg><span class="text-[9px] font-semibold">분석</span></button>
+            <button class="flex flex-col items-center gap-0.5 text-zinc-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg><span class="text-[9px]">프로필</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5 max-w-[390px] text-sm text-stone-400">
+        <p>현재 <span class="text-white">폼 점수(TSB)</span> 한눈에 + <span class="text-white">CTL/ATL 곡선</span> + <span class="text-white">종목 밸런스 도넛</span>. AI가 부족한 종목 짚어줌. PR도 자동 갱신.</p>
+      </div>
+    </div>
+
+    <!-- ============== -->
+    <!-- 4. 장비        -->
+    <!-- ============== -->
+    <div>
+      <div class="mb-5 flex items-baseline gap-3">
+        <span class="font-mono-j text-xs text-stone-500">04</span>
+        <h2 class="font-serif-f text-xl font-bold text-white">장비</h2>
+        <span class="text-xs text-stone-500">— 마일리지 · 교체 알림</span>
+      </div>
+
+      <div class="phone forge-bg">
+        <div class="phone-screen grid-tex">
+          <div class="h-14"></div>
+
+          <div class="px-6 pt-3 pb-3 flex items-center justify-between">
+            <div>
+              <div class="text-zinc-500 text-xs">장비</div>
+              <div class="text-white text-lg font-semibold mt-0.5">내 장비</div>
+            </div>
+            <button class="text-amber-500 text-sm font-semibold">+ 추가</button>
+          </div>
+
+          <!-- Alert -->
+          <div class="px-6 pb-4">
+            <div class="rounded-2xl p-4 bg-gradient-to-br from-amber-500/15 to-amber-500/5 border border-amber-500/40">
+              <div class="flex items-start gap-2.5">
+                <div class="text-amber-400 text-lg shrink-0">⚠</div>
+                <div class="flex-1">
+                  <div class="text-amber-300 text-xs font-bold uppercase tracking-wider mb-0.5">교체 알림 2건</div>
+                  <p class="text-zinc-300 text-xs">체인 4,120km — 교체 권장 / 카본 레이싱화 320km — 곧 교체</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bike 1 -->
+          <div class="px-6 pb-4">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2 px-1">자전거</div>
+            <div class="forge-card rounded-3xl p-5">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl">🚴</div>
+                <div class="flex-1">
+                  <div class="text-white font-bold">Cervelo P5</div>
+                  <div class="text-zinc-500 text-[11px] mt-0.5">TT 바이크 · 2024년 5월부터</div>
+                </div>
+                <div class="text-right">
+                  <div class="font-mono-j text-white font-bold text-sm">3,240</div>
+                  <div class="text-zinc-500 text-[10px]">km 누적</div>
+                </div>
+              </div>
+
+              <div class="space-y-2.5 pt-3 border-t border-zinc-800">
+                <!-- 체인 - 경고 -->
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center gap-2">
+                      <div class="w-1.5 h-1.5 rounded-full bg-amber-400"></div>
+                      <span class="text-zinc-200 text-xs">체인</span>
+                      <span class="text-amber-400 text-[9px] font-bold uppercase">교체 필요</span>
+                    </div>
+                    <span class="text-amber-400 font-mono-j text-xs font-bold">4,120 / 4,000</span>
+                  </div>
+                  <div class="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-amber-400 rounded-full shadow-[0_0_6px_rgba(251,191,36,0.6)]" style="width: 100%"></div>
+                  </div>
+                </div>
+                <!-- 카세트 -->
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center gap-2">
+                      <div class="w-1.5 h-1.5 rounded-full bg-zinc-500"></div>
+                      <span class="text-zinc-300 text-xs">카세트</span>
+                      <span class="text-zinc-500 text-[9px]">체인 2/3회</span>
+                    </div>
+                    <span class="text-zinc-400 font-mono-j text-xs">정상</span>
+                  </div>
+                  <div class="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-500/70 rounded-full" style="width: 66%"></div>
+                  </div>
+                </div>
+                <!-- 브레이크 패드 -->
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center gap-2">
+                      <div class="w-1.5 h-1.5 rounded-full bg-zinc-500"></div>
+                      <span class="text-zinc-300 text-xs">브레이크 패드 (메탈)</span>
+                    </div>
+                    <span class="text-zinc-400 font-mono-j text-xs">2,180 / 5,000</span>
+                  </div>
+                  <div class="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-500/70 rounded-full" style="width: 43%"></div>
+                  </div>
+                </div>
+                <!-- 타이어 -->
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center gap-2">
+                      <div class="w-1.5 h-1.5 rounded-full bg-zinc-500"></div>
+                      <span class="text-zinc-300 text-xs">타이어 (후)</span>
+                    </div>
+                    <span class="text-zinc-400 font-mono-j text-xs">2,640 / 3,000</span>
+                  </div>
+                  <div class="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-amber-500/70 rounded-full" style="width: 88%"></div>
+                  </div>
+                </div>
+                <!-- BB -->
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center gap-2">
+                      <div class="w-1.5 h-1.5 rounded-full bg-zinc-500"></div>
+                      <span class="text-zinc-300 text-xs">BB</span>
+                    </div>
+                    <span class="text-zinc-400 font-mono-j text-xs">3,240 / 10,000</span>
+                  </div>
+                  <div class="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-500/70 rounded-full" style="width: 32%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="w-full mt-4 text-zinc-400 text-xs bg-zinc-900 border border-zinc-800 py-2 rounded-xl">부품 상세 ›</button>
+            </div>
+          </div>
+
+          <!-- Running shoes -->
+          <div class="px-6 pb-4">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2 px-1">러닝화</div>
+            <div class="space-y-2">
+              <div class="forge-card rounded-2xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-400/10 border border-rose-400/20 flex items-center justify-center">👟</div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-white text-sm font-semibold">Saucony Endorphin Pro 4</div>
+                  <div class="text-zinc-500 text-[10px] mt-0.5">카본 레이싱 · 적정 400km</div>
+                  <div class="mt-2 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-amber-400 rounded-full" style="width: 80%"></div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-amber-400 font-mono-j font-bold text-sm">320</div>
+                  <div class="text-zinc-500 text-[10px]">/ 400km</div>
+                </div>
+              </div>
+              <div class="forge-card rounded-2xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-400/10 border border-rose-400/20 flex items-center justify-center">👟</div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-white text-sm font-semibold">Nike Pegasus 41</div>
+                  <div class="text-zinc-500 text-[10px] mt-0.5">트레이닝화 · 적정 700km</div>
+                  <div class="mt-2 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-500/70 rounded-full" style="width: 40%"></div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-white font-mono-j font-bold text-sm">280</div>
+                  <div class="text-zinc-500 text-[10px]">/ 700km</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Replacement history -->
+          <div class="px-6 pb-4">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2 px-1">최근 교체</div>
+            <div class="forge-card rounded-2xl p-4 space-y-2 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-zinc-600 font-mono-j w-12">4/12</span>
+                <span class="text-zinc-300 flex-1">체인 교체 (3회차)</span>
+                <span class="text-zinc-500 font-mono-j">68,000원</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-zinc-600 font-mono-j w-12">3/05</span>
+                <span class="text-zinc-300 flex-1">바테이프 교체</span>
+                <span class="text-zinc-500 font-mono-j">24,000원</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-zinc-600 font-mono-j w-12">2/18</span>
+                <span class="text-zinc-300 flex-1">브레이크 패드 교체</span>
+                <span class="text-zinc-500 font-mono-j">42,000원</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-28"></div>
+        </div>
+      </div>
+
+      <div class="mt-5 max-w-[390px] text-sm text-stone-400">
+        <p>운동 기록할 때 자동으로 km 누적. <span class="text-white">체인 3회 교체 → 카세트 교체 알림</span>, 브레이크·타이어·러닝화까지 한 화면에. 교체 이력·비용도 자동 기록.</p>
+      </div>
+    </div>
+
+    <!-- ============== -->
+    <!-- 5. 설정        -->
+    <!-- ============== -->
+    <div>
+      <div class="mb-5 flex items-baseline gap-3">
+        <span class="font-mono-j text-xs text-stone-500">05</span>
+        <h2 class="font-serif-f text-xl font-bold text-white">설정</h2>
+        <span class="text-xs text-stone-500">— 대회·존·연동</span>
+      </div>
+
+      <div class="phone forge-bg">
+        <div class="phone-screen grid-tex">
+          <div class="h-14"></div>
+
+          <div class="px-6 pt-3 pb-4">
+            <div class="text-zinc-500 text-xs">설정</div>
+            <div class="text-white text-2xl font-semibold mt-0.5">민호님 ·</div>
+          </div>
+
+          <!-- Profile card -->
+          <div class="px-6 pb-4">
+            <div class="forge-card rounded-3xl p-5 flex items-center gap-4">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-zinc-950 font-bold text-2xl">민</div>
+              <div class="flex-1">
+                <div class="text-white font-bold">민호</div>
+                <div class="text-zinc-500 text-xs mt-0.5">68.4kg · 178cm · 32세</div>
+                <div class="flex gap-1.5 mt-2">
+                  <div class="text-[10px] bg-amber-500/15 border border-amber-500/30 text-amber-400 px-2 py-0.5 rounded-full font-mono-j">FTP 245W</div>
+                  <div class="text-[10px] bg-sky-400/15 border border-sky-400/30 text-sky-300 px-2 py-0.5 rounded-full font-mono-j">CSS 1:42</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Race -->
+          <div class="px-6 pb-4">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2 px-1 flex items-center justify-between">
+              <span>대회</span>
+              <span class="text-amber-500 normal-case tracking-normal">+ 추가</span>
+            </div>
+            <div class="space-y-2">
+              <div class="forge-card rounded-2xl p-4 relative overflow-hidden">
+                <div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-amber-500/10 blur-xl"></div>
+                <div class="flex items-start justify-between relative">
+                  <div>
+                    <div class="flex items-center gap-1.5 mb-1">
+                      <span class="text-[9px] bg-amber-500 text-zinc-950 font-bold px-1.5 py-0.5 rounded">A</span>
+                      <span class="text-amber-500 text-[10px] uppercase tracking-widest font-bold">메인 대회</span>
+                    </div>
+                    <div class="text-white font-bold">속초 트라이애슬론</div>
+                    <div class="text-zinc-500 text-xs mt-0.5">철인3종 · Olympic · 8/8 토</div>
+                    <div class="text-zinc-400 text-xs mt-1.5">목표 <span class="text-white font-mono-j font-bold">2:30:00</span></div>
+                  </div>
+                  <div class="text-right">
+                    <div class="font-mono-j text-white font-bold text-2xl">D-87</div>
+                  </div>
+                </div>
+              </div>
+              <div class="forge-card rounded-2xl p-3 flex items-center gap-3 opacity-70">
+                <span class="text-[9px] bg-zinc-700 text-zinc-300 font-bold px-1.5 py-0.5 rounded">B</span>
+                <div class="flex-1">
+                  <div class="text-white text-sm">한강 마라톤 (Half)</div>
+                  <div class="text-zinc-500 text-[10px]">7/19 토 · D-62</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Zones -->
+          <div class="px-6 pb-4">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2 px-1">트레이닝 존</div>
+            <div class="forge-card rounded-2xl divide-y divide-zinc-800">
+              <button class="w-full p-3.5 flex items-center gap-3 text-left">
+                <div class="w-8 h-8 rounded-lg bg-sky-400/10 flex items-center justify-center">🏊</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm">수영 CSS</div>
+                  <div class="text-zinc-500 text-[10px]">100m 1:42 · 5개 존</div>
+                </div>
+                <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <button class="w-full p-3.5 flex items-center gap-3 text-left">
+                <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">🚴</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm">사이클 FTP</div>
+                  <div class="text-zinc-500 text-[10px]">245W · 7개 존</div>
+                </div>
+                <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <button class="w-full p-3.5 flex items-center gap-3 text-left">
+                <div class="w-8 h-8 rounded-lg bg-rose-400/10 flex items-center justify-center">🏃</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm">러닝 LT</div>
+                  <div class="text-zinc-500 text-[10px]">임계 4:18/km · 5개 존</div>
+                </div>
+                <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Integrations -->
+          <div class="px-6 pb-4">
+            <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2 px-1">연동</div>
+            <div class="forge-card rounded-2xl divide-y divide-zinc-800">
+              <div class="p-3.5 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center font-bold text-white text-sm">S</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm">Strava</div>
+                  <div class="text-emerald-400 text-[10px] flex items-center gap-1">
+                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
+                    연결됨 · 자동 동기화 5분 전
+                  </div>
+                </div>
+                <button class="text-zinc-500 text-xs">관리</button>
+              </div>
+              <div class="p-3.5 flex items-center gap-3 opacity-60">
+                <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-zinc-500 text-sm">📷</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm">삼성헬스 이미지/CSV</div>
+                  <div class="text-zinc-500 text-[10px]">스크린샷·CSV 업로드</div>
+                </div>
+                <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other settings -->
+          <div class="px-6 pb-4">
+            <div class="forge-card rounded-2xl divide-y divide-zinc-800">
+              <button class="w-full p-3.5 flex items-center gap-3 text-left">
+                <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center">🔔</div>
+                <div class="flex-1 text-white text-sm">알림</div>
+                <div class="text-zinc-500 text-xs">3개 켜짐</div>
+                <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <button class="w-full p-3.5 flex items-center gap-3 text-left">
+                <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center">🎯</div>
+                <div class="flex-1 text-white text-sm">AI 플랜 재생성</div>
+                <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <button class="w-full p-3.5 flex items-center gap-3 text-left">
+                <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center">📦</div>
+                <div class="flex-1 text-white text-sm">데이터 내보내기</div>
+                <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="px-6 pb-6">
+            <button class="w-full text-rose-400 text-sm py-3">로그아웃</button>
+          </div>
+
+          <div class="h-12"></div>
+        </div>
+      </div>
+
+      <div class="mt-5 max-w-[390px] text-sm text-stone-400">
+        <p>프로필 + <span class="text-white">대회 A/B 우선순위</span> + 종목별 존 + Strava 연동 + 삼성헬스 업로드 + AI 플랜 재생성 트리거.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Summary -->
+<section class="mt-12 max-w-3xl mx-auto bg-zinc-950 border border-zinc-800 rounded-2xl p-8 mx-6">
+  <h3 class="font-serif-f text-xl font-bold text-white mb-4">화면 흐름</h3>
+  <div class="space-y-3 text-sm text-stone-300">
+    <div class="flex gap-3"><span class="font-mono-j text-amber-500 shrink-0">01</span><div><span class="font-semibold text-white">운동 기록</span> — 종목 한 번 탭, 5초 입력. 계획 세션과 자동 매칭. 자전거 부품 누적.</div></div>
+    <div class="flex gap-3"><span class="font-mono-j text-amber-500 shrink-0">02</span><div><span class="font-semibold text-white">식사 기록</span> — 텍스트 입력만으로 AI가 칼로리·탄단지 분석 + 다음 끼니 코칭.</div></div>
+    <div class="flex gap-3"><span class="font-mono-j text-amber-500 shrink-0">03</span><div><span class="font-semibold text-white">분석</span> — 폼 점수, 피트니스 곡선, 종목 밸런스, PR. AI가 약점 짚어줌.</div></div>
+    <div class="flex gap-3"><span class="font-mono-j text-amber-500 shrink-0">04</span><div><span class="font-semibold text-white">장비</span> — 부품별 마일리지 + 교체 알림 + 연쇄 규칙 + 비용 이력.</div></div>
+    <div class="flex gap-3"><span class="font-mono-j text-amber-500 shrink-0">05</span><div><span class="font-semibold text-white">설정</span> — 프로필·대회·존·연동·AI 플랜 재생성.</div></div>
+  </div>
+</section>
+
+<footer class="mt-12 pt-8 border-t border-zinc-800 text-center text-xs text-stone-500 px-6">
+  IronTrail · 모든 화면 시안 — 좌우로 스크롤
+</footer>
+
+</body>
+</html>

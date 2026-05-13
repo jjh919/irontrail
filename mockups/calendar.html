@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IronTrail · Calendar</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&display=swap" rel="stylesheet" />
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  .font-mono-j { font-family: 'JetBrains Mono', monospace; }
+  .font-serif-f { font-family: 'Fraunces', serif; }
+
+  .phone {
+    width: 390px;
+    height: 820px;
+    border-radius: 48px;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), 0 0 0 8px #1a1a1a, 0 0 0 10px #2a2a2a;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 18px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 30px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 100;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .phone-screen::-webkit-scrollbar { width: 0; }
+
+  .forge-bg {
+    background:
+      radial-gradient(120% 60% at 50% 0%, rgba(249,115,22,0.18), transparent 60%),
+      radial-gradient(80% 40% at 100% 100%, rgba(220,38,38,0.06), transparent 60%),
+      #0a0a0a;
+  }
+  .forge-card {
+    background: linear-gradient(180deg, #18181b, #0f0f10);
+    border: 1px solid #27272a;
+  }
+  .grid-tex {
+    background-image:
+      linear-gradient(180deg, transparent, rgba(255,255,255,0.015) 50%, transparent);
+  }
+</style>
+</head>
+<body class="bg-stone-900 min-h-screen py-12 px-4">
+
+<header class="text-center mb-10">
+  <div class="text-[10px] uppercase tracking-[0.3em] text-stone-500">IronTrail</div>
+  <h1 class="font-serif-f text-3xl font-bold text-white mt-2">캘린더 페이지</h1>
+  <p class="text-stone-400 text-sm mt-2">주간 / 월간 토글 — 같은 데이터, 다른 깊이</p>
+</header>
+
+<div class="flex gap-10 justify-center overflow-x-auto pb-8">
+
+  <!-- ============================ -->
+  <!-- WEEKLY VIEW                  -->
+  <!-- ============================ -->
+  <div>
+    <div class="mb-5 flex items-baseline gap-3 justify-center">
+      <span class="font-mono-j text-xs text-stone-500">A</span>
+      <h2 class="font-serif-f text-xl font-bold text-white">주간 뷰</h2>
+      <span class="text-xs text-stone-500">— 세션 단위로 깊게</span>
+    </div>
+
+    <div class="phone forge-bg">
+      <div class="phone-screen grid-tex">
+
+        <div class="h-14"></div>
+
+        <!-- Page header -->
+        <div class="px-6 pt-3 pb-3 flex items-center justify-between">
+          <div>
+            <div class="text-zinc-500 text-xs">이번 주</div>
+            <div class="text-white text-lg font-semibold mt-0.5">5월 12일 - 18일</div>
+          </div>
+          <div class="flex items-center gap-1">
+            <button class="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M15 19l-7-7 7-7"/></svg></button>
+            <button class="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+
+        <!-- Toggle -->
+        <div class="px-6 pb-4">
+          <div class="bg-zinc-900 border border-zinc-800 rounded-full p-1 flex">
+            <button class="flex-1 bg-amber-500 text-zinc-950 font-bold text-xs py-2 rounded-full shadow-[0_0_12px_rgba(245,158,11,0.3)]">주간</button>
+            <button class="flex-1 text-zinc-500 text-xs py-2 rounded-full">월간</button>
+          </div>
+        </div>
+
+        <!-- Summary card -->
+        <div class="px-6 pb-5">
+          <div class="forge-card rounded-3xl p-5">
+            <div class="flex items-baseline justify-between mb-4">
+              <div class="text-zinc-500 text-[10px] uppercase tracking-widest">Week Total</div>
+              <div class="text-zinc-500 text-[10px] font-mono-j">W19 · 4/6 완료</div>
+            </div>
+            <div class="grid grid-cols-3 gap-3 mb-4">
+              <div>
+                <div class="text-zinc-500 text-[10px] uppercase">시간</div>
+                <div class="text-white font-mono-j font-bold text-xl mt-1">6h 20m</div>
+              </div>
+              <div>
+                <div class="text-zinc-500 text-[10px] uppercase">거리</div>
+                <div class="text-white font-mono-j font-bold text-xl mt-1">65 <span class="text-xs text-zinc-500">km</span></div>
+              </div>
+              <div>
+                <div class="text-zinc-500 text-[10px] uppercase">TSS</div>
+                <div class="text-white font-mono-j font-bold text-xl mt-1">380</div>
+              </div>
+            </div>
+            <!-- Sport distribution bar -->
+            <div class="border-t border-zinc-800 pt-4">
+              <div class="flex h-2 rounded-full overflow-hidden gap-0.5">
+                <div class="bg-sky-400" style="width: 25%"></div>
+                <div class="bg-amber-500" style="width: 45%"></div>
+                <div class="bg-rose-400" style="width: 20%"></div>
+                <div class="bg-violet-400" style="width: 10%"></div>
+              </div>
+              <div class="flex justify-between mt-3 text-[10px]">
+                <div class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span><span class="text-zinc-400">수영</span><span class="text-zinc-600 font-mono-j">1:35</span></div>
+                <div class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span><span class="text-zinc-400">사이클</span><span class="text-zinc-600 font-mono-j">2:50</span></div>
+                <div class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span><span class="text-zinc-400">러닝</span><span class="text-zinc-600 font-mono-j">1:15</span></div>
+                <div class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span><span class="text-zinc-400">웨이트</span><span class="text-zinc-600 font-mono-j">0:40</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day sessions -->
+        <div class="px-6 space-y-3 pb-5">
+
+          <!-- 월 (완료) -->
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5 px-1">
+              <div class="text-zinc-300 text-xs font-bold">월</div>
+              <div class="text-zinc-500 text-xs font-mono-j">5/12</div>
+              <div class="ml-auto text-amber-500/70 text-[10px] uppercase tracking-widest">완료</div>
+            </div>
+            <div class="forge-card rounded-2xl p-3.5 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-sky-400/10 border border-sky-400/20 flex items-center justify-center text-lg">🏊</div>
+              <div class="flex-1 min-w-0">
+                <div class="text-white text-sm font-semibold">드릴 + 스윔</div>
+                <div class="text-zinc-500 text-[11px] mt-0.5 font-mono-j">40' · 1.8km · 페이스 1:48</div>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.6)]"></div>
+            </div>
+          </div>
+
+          <!-- 화 (오늘) -->
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5 px-1">
+              <div class="text-amber-400 text-xs font-bold">화</div>
+              <div class="text-amber-400 text-xs font-mono-j">5/13</div>
+              <div class="ml-auto text-amber-400 text-[10px] uppercase tracking-widest font-bold">오늘</div>
+            </div>
+            <div class="rounded-2xl p-3.5 flex items-center gap-3 bg-amber-500/[0.06] border border-amber-500/30 shadow-[0_0_20px_rgba(245,158,11,0.1)]">
+              <div class="w-10 h-10 rounded-xl bg-sky-400/15 border border-sky-400/30 flex items-center justify-center text-lg">🏊</div>
+              <div class="flex-1 min-w-0">
+                <div class="text-white text-sm font-semibold">인터벌 수영</div>
+                <div class="text-zinc-400 text-[11px] mt-0.5 font-mono-j">45' · 100m × 10 · 강도 III</div>
+              </div>
+              <button class="text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-zinc-950 px-2.5 py-1.5 rounded-md">시작</button>
+            </div>
+          </div>
+
+          <!-- 수 (휴식) -->
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5 px-1">
+              <div class="text-zinc-300 text-xs font-bold">수</div>
+              <div class="text-zinc-500 text-xs font-mono-j">5/14</div>
+              <div class="ml-auto text-zinc-600 text-[10px] uppercase tracking-widest">휴식</div>
+            </div>
+            <div class="rounded-2xl p-3.5 border border-zinc-800 border-dashed bg-zinc-950/40 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center text-zinc-600">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M3 12h18"/></svg>
+              </div>
+              <div class="text-zinc-500 text-sm">회복일 · 가벼운 스트레칭</div>
+            </div>
+          </div>
+
+          <!-- 목 (계획) -->
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5 px-1">
+              <div class="text-zinc-300 text-xs font-bold">목</div>
+              <div class="text-zinc-500 text-xs font-mono-j">5/15</div>
+              <div class="ml-auto text-zinc-500 text-[10px] uppercase tracking-widest">계획</div>
+            </div>
+            <div class="forge-card rounded-2xl p-3.5 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-lg">🚴</div>
+              <div class="flex-1 min-w-0">
+                <div class="text-white text-sm font-semibold">LSD 라이딩</div>
+                <div class="text-zinc-500 text-[11px] mt-0.5 font-mono-j">1h 30' · 45km · Z2 유지</div>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
+            </div>
+          </div>
+
+          <!-- 금 (계획) -->
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5 px-1">
+              <div class="text-zinc-300 text-xs font-bold">금</div>
+              <div class="text-zinc-500 text-xs font-mono-j">5/16</div>
+              <div class="ml-auto text-zinc-500 text-[10px] uppercase tracking-widest">계획</div>
+            </div>
+            <div class="forge-card rounded-2xl p-3.5 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-rose-400/10 border border-rose-400/20 flex items-center justify-center text-lg">🏃</div>
+              <div class="flex-1 min-w-0">
+                <div class="text-white text-sm font-semibold">템포 러닝</div>
+                <div class="text-zinc-500 text-[11px] mt-0.5 font-mono-j">45' · 8km · 4:30/km</div>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
+            </div>
+          </div>
+
+          <!-- 토 (브릭 - 계획) -->
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5 px-1">
+              <div class="text-zinc-300 text-xs font-bold">토</div>
+              <div class="text-zinc-500 text-xs font-mono-j">5/17</div>
+              <div class="ml-auto text-amber-500/70 text-[10px] uppercase tracking-widest font-bold">★ Brick</div>
+            </div>
+            <div class="forge-card rounded-2xl p-3.5 flex items-center gap-3">
+              <div class="flex -space-x-2">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-lg z-10">🚴</div>
+                <div class="w-10 h-10 rounded-xl bg-rose-400/10 border border-rose-400/20 flex items-center justify-center text-lg">🏃</div>
+              </div>
+              <div class="flex-1 min-w-0 ml-1">
+                <div class="text-white text-sm font-semibold">사이클 → 러닝 브릭</div>
+                <div class="text-zinc-500 text-[11px] mt-0.5 font-mono-j">60km + 8km · 핵심 세션</div>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
+            </div>
+          </div>
+
+          <!-- 일 (휴식) -->
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5 px-1">
+              <div class="text-zinc-300 text-xs font-bold">일</div>
+              <div class="text-zinc-500 text-xs font-mono-j">5/18</div>
+              <div class="ml-auto text-zinc-600 text-[10px] uppercase tracking-widest">휴식</div>
+            </div>
+            <div class="rounded-2xl p-3.5 border border-zinc-800 border-dashed bg-zinc-950/40 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center text-zinc-600">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M3 12h18"/></svg>
+              </div>
+              <div class="text-zinc-500 text-sm">완전 휴식</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="h-28"></div>
+
+        <!-- Bottom nav -->
+        <div class="absolute bottom-0 left-0 right-0 bg-zinc-950/95 backdrop-blur-xl border-t border-zinc-800 px-6 py-3 flex items-center justify-around">
+          <button class="flex flex-col items-center gap-0.5 text-zinc-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M3 12l9-9 9 9M5 10v10h14V10"/></svg><span class="text-[9px]">홈</span></button>
+          <button class="flex flex-col items-center gap-0.5 text-amber-500"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M3 10h18" stroke="#0a0a0a" stroke-width="1.5"/></svg><span class="text-[9px] font-semibold">캘린더</span></button>
+          <button class="w-12 h-12 -mt-6 rounded-full bg-amber-500 text-zinc-950 flex items-center justify-center shadow-xl shadow-amber-500/40"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></button>
+          <button class="flex flex-col items-center gap-0.5 text-zinc-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M4 19V5m8 14V9m8 10V13"/></svg><span class="text-[9px]">분석</span></button>
+          <button class="flex flex-col items-center gap-0.5 text-zinc-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg><span class="text-[9px]">프로필</span></button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mt-5 max-w-[390px] text-sm text-stone-400 space-y-2">
+      <p>요일별 세션을 카드로 펼침. <span class="text-white">완료·오늘·계획·휴식</span>이 한 눈에 구분되고, 오늘은 호박색 글로우로 강조.</p>
+    </div>
+  </div>
+
+  <!-- ============================ -->
+  <!-- MONTHLY VIEW                 -->
+  <!-- ============================ -->
+  <div>
+    <div class="mb-5 flex items-baseline gap-3 justify-center">
+      <span class="font-mono-j text-xs text-stone-500">B</span>
+      <h2 class="font-serif-f text-xl font-bold text-white">월간 뷰</h2>
+      <span class="text-xs text-stone-500">— 전체 흐름 한눈에</span>
+    </div>
+
+    <div class="phone forge-bg">
+      <div class="phone-screen grid-tex">
+
+        <div class="h-14"></div>
+
+        <!-- Page header -->
+        <div class="px-6 pt-3 pb-3 flex items-center justify-between">
+          <div>
+            <div class="text-zinc-500 text-xs">이번 달</div>
+            <div class="text-white text-lg font-semibold mt-0.5">2026년 5월</div>
+          </div>
+          <div class="flex items-center gap-1">
+            <button class="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M15 19l-7-7 7-7"/></svg></button>
+            <button class="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+
+        <!-- Toggle -->
+        <div class="px-6 pb-4">
+          <div class="bg-zinc-900 border border-zinc-800 rounded-full p-1 flex">
+            <button class="flex-1 text-zinc-500 text-xs py-2 rounded-full">주간</button>
+            <button class="flex-1 bg-amber-500 text-zinc-950 font-bold text-xs py-2 rounded-full shadow-[0_0_12px_rgba(245,158,11,0.3)]">월간</button>
+          </div>
+        </div>
+
+        <!-- Month summary -->
+        <div class="px-6 pb-4">
+          <div class="forge-card rounded-2xl p-4">
+            <div class="flex items-baseline justify-between mb-3">
+              <div class="text-zinc-500 text-[10px] uppercase tracking-widest">Month Total</div>
+              <div class="text-zinc-500 text-[10px] font-mono-j">18/24 완료 · 75%</div>
+            </div>
+            <div class="grid grid-cols-4 gap-2 mb-3">
+              <div><div class="text-zinc-500 text-[9px] uppercase">시간</div><div class="text-white font-mono-j font-bold text-base mt-0.5">24h</div></div>
+              <div><div class="text-zinc-500 text-[9px] uppercase">거리</div><div class="text-white font-mono-j font-bold text-base mt-0.5">260km</div></div>
+              <div><div class="text-zinc-500 text-[9px] uppercase">TSS</div><div class="text-white font-mono-j font-bold text-base mt-0.5">1420</div></div>
+              <div><div class="text-zinc-500 text-[9px] uppercase">vs 4월</div><div class="text-amber-400 font-mono-j font-bold text-base mt-0.5">+12%</div></div>
+            </div>
+            <div class="flex h-1.5 rounded-full overflow-hidden gap-0.5">
+              <div class="bg-sky-400" style="width: 22%"></div>
+              <div class="bg-amber-500" style="width: 48%"></div>
+              <div class="bg-rose-400" style="width: 22%"></div>
+              <div class="bg-violet-400" style="width: 8%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calendar grid -->
+        <div class="px-6 pb-4">
+          <!-- Weekday headers -->
+          <div class="grid grid-cols-7 gap-1.5 mb-2 px-1">
+            <div class="text-center text-[10px] font-mono-j text-zinc-600 uppercase">월</div>
+            <div class="text-center text-[10px] font-mono-j text-zinc-600 uppercase">화</div>
+            <div class="text-center text-[10px] font-mono-j text-zinc-600 uppercase">수</div>
+            <div class="text-center text-[10px] font-mono-j text-zinc-600 uppercase">목</div>
+            <div class="text-center text-[10px] font-mono-j text-zinc-600 uppercase">금</div>
+            <div class="text-center text-[10px] font-mono-j text-zinc-600 uppercase">토</div>
+            <div class="text-center text-[10px] font-mono-j text-zinc-600 uppercase">일</div>
+          </div>
+
+          <!-- Day cells -->
+          <div class="grid grid-cols-7 gap-1.5">
+            <!-- Row 1: empty + empty + empty + empty + 1(금) 2(토) 3(일) -->
+            <div></div><div></div><div></div><div></div>
+            <!-- 1 금 done -->
+            <div class="aspect-square rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex flex-col">
+              <div class="text-[9px] text-zinc-600 font-mono-j">1</div>
+              <div class="flex-1 flex items-center justify-center gap-0.5">
+                <div class="w-1.5 h-1.5 rounded-full bg-rose-400"></div>
+              </div>
+            </div>
+            <!-- 2 토 done -->
+            <div class="aspect-square rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex flex-col">
+              <div class="text-[9px] text-zinc-600 font-mono-j">2</div>
+              <div class="flex-1 flex items-center justify-center gap-0.5">
+                <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-rose-400"></div>
+              </div>
+            </div>
+            <!-- 3 일 rest -->
+            <div class="aspect-square rounded-lg bg-zinc-950 border border-zinc-900 p-1 flex flex-col">
+              <div class="text-[9px] text-zinc-700 font-mono-j">3</div>
+            </div>
+
+            <!-- Row 2: 4 5 6 7 8 9 10 -->
+            <div class="aspect-square rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">4</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-sky-400"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">5</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div></div></div>
+            <!-- 6 수 missed -->
+            <div class="aspect-square rounded-lg bg-zinc-950 border border-zinc-900 p-1 flex flex-col"><div class="text-[9px] text-zinc-700 font-mono-j">6</div><div class="flex-1 flex items-center justify-center"><svg class="w-2.5 h-2.5 text-rose-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" d="M6 6l12 12M6 18L18 6"/></svg></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">7</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-rose-400"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">8</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-violet-400"></div></div></div>
+            <!-- 9 brick -->
+            <div class="aspect-square rounded-lg bg-amber-500/[0.08] border border-amber-500/30 p-1 flex flex-col"><div class="text-[9px] text-amber-500/70 font-mono-j">9</div><div class="flex-1 flex items-center justify-center gap-0.5"><div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div><div class="w-1.5 h-1.5 rounded-full bg-rose-400"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-950 border border-zinc-900 p-1 flex flex-col"><div class="text-[9px] text-zinc-700 font-mono-j">10</div></div>
+
+            <!-- Row 3: 11 12(week start) 13(today) 14 15 16 17 -->
+            <div class="aspect-square rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">11</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">12</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-sky-400"></div></div></div>
+            <!-- 13 TODAY -->
+            <div class="aspect-square rounded-lg bg-amber-500/10 ring-2 ring-amber-500 p-1 flex flex-col shadow-[0_0_12px_rgba(245,158,11,0.4)]"><div class="text-[9px] text-amber-400 font-mono-j font-bold">13</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-950 border border-zinc-900 p-1 flex flex-col"><div class="text-[9px] text-zinc-700 font-mono-j">14</div></div>
+            <!-- planned future -->
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">15</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-amber-500/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">16</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-rose-400/40"></div></div></div>
+            <!-- 17 sat - planned brick -->
+            <div class="aspect-square rounded-lg bg-amber-500/[0.04] border border-amber-500/20 border-dashed p-1 flex flex-col"><div class="text-[9px] text-amber-500/50 font-mono-j">17</div><div class="flex-1 flex items-center justify-center gap-0.5"><div class="w-1.5 h-1.5 rounded-full bg-amber-500/40"></div><div class="w-1.5 h-1.5 rounded-full bg-rose-400/40"></div></div></div>
+
+            <!-- Row 4: 18-24 -->
+            <div class="aspect-square rounded-lg bg-zinc-950 border border-zinc-900 p-1 flex flex-col"><div class="text-[9px] text-zinc-700 font-mono-j">18</div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">19</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-sky-400/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">20</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-amber-500/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">21</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-rose-400/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">22</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-violet-400/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-amber-500/[0.04] border border-amber-500/20 border-dashed p-1 flex flex-col"><div class="text-[9px] text-amber-500/50 font-mono-j">23</div><div class="flex-1 flex items-center justify-center gap-0.5"><div class="w-1.5 h-1.5 rounded-full bg-amber-500/40"></div><div class="w-1.5 h-1.5 rounded-full bg-rose-400/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-950 border border-zinc-900 p-1 flex flex-col"><div class="text-[9px] text-zinc-700 font-mono-j">24</div></div>
+
+            <!-- Row 5: 25-31 -->
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">25</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-amber-500/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">26</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-sky-400/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">27</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-rose-400/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">28</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-amber-500/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-900/50 border border-zinc-800 border-dashed p-1 flex flex-col"><div class="text-[9px] text-zinc-600 font-mono-j">29</div><div class="flex-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-rose-400/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-amber-500/[0.04] border border-amber-500/20 border-dashed p-1 flex flex-col"><div class="text-[9px] text-amber-500/50 font-mono-j">30</div><div class="flex-1 flex items-center justify-center gap-0.5"><div class="w-1.5 h-1.5 rounded-full bg-amber-500/40"></div><div class="w-1.5 h-1.5 rounded-full bg-rose-400/40"></div></div></div>
+            <div class="aspect-square rounded-lg bg-zinc-950 border border-zinc-900 p-1 flex flex-col"><div class="text-[9px] text-zinc-700 font-mono-j">31</div></div>
+
+          </div>
+
+          <!-- Legend -->
+          <div class="mt-4 flex flex-wrap gap-x-3 gap-y-1.5 text-[10px] text-zinc-500">
+            <div class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-sky-400"></div><span>수영</span></div>
+            <div class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div><span>사이클</span></div>
+            <div class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-rose-400"></div><span>러닝</span></div>
+            <div class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-violet-400"></div><span>웨이트</span></div>
+            <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded ring-1 ring-amber-500"></div><span>브릭</span></div>
+            <div class="flex items-center gap-1.5"><svg class="w-2 h-2 text-rose-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path d="M6 6l12 12M6 18L18 6"/></svg><span>누락</span></div>
+          </div>
+        </div>
+
+        <!-- Weekly mini summary -->
+        <div class="px-6 pb-5">
+          <div class="text-zinc-500 text-[11px] uppercase tracking-widest mb-2 px-1">주차별 볼륨</div>
+          <div class="forge-card rounded-2xl p-4 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="text-zinc-500 text-[10px] font-mono-j w-8">W18</div>
+              <div class="flex-1 h-2 bg-zinc-800 rounded-full overflow-hidden"><div class="h-full bg-amber-500/50 rounded-full" style="width: 70%"></div></div>
+              <div class="text-zinc-400 text-[11px] font-mono-j w-12 text-right">5h 40m</div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="text-zinc-500 text-[10px] font-mono-j w-8">W19</div>
+              <div class="flex-1 h-2 bg-zinc-800 rounded-full overflow-hidden"><div class="h-full bg-amber-500 rounded-full shadow-[0_0_6px_rgba(245,158,11,0.6)]" style="width: 79%"></div></div>
+              <div class="text-amber-400 text-[11px] font-mono-j w-12 text-right font-bold">6h 20m</div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="text-zinc-500 text-[10px] font-mono-j w-8">W20</div>
+              <div class="flex-1 h-2 bg-zinc-800 rounded-full overflow-hidden"><div class="h-full bg-zinc-700 rounded-full" style="width: 85%"></div></div>
+              <div class="text-zinc-600 text-[11px] font-mono-j w-12 text-right">7h 00m</div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="text-zinc-500 text-[10px] font-mono-j w-8">W21</div>
+              <div class="flex-1 h-2 bg-zinc-800 rounded-full overflow-hidden"><div class="h-full bg-zinc-700 rounded-full" style="width: 50%"></div></div>
+              <div class="text-zinc-600 text-[11px] font-mono-j w-12 text-right">4h 00m</div>
+            </div>
+            <div class="pt-1 text-[10px] text-zinc-500">W21 회복주 · 자동 삽입됨</div>
+          </div>
+        </div>
+
+        <div class="h-28"></div>
+
+        <!-- Bottom nav -->
+        <div class="absolute bottom-0 left-0 right-0 bg-zinc-950/95 backdrop-blur-xl border-t border-zinc-800 px-6 py-3 flex items-center justify-around">
+          <button class="flex flex-col items-center gap-0.5 text-zinc-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M3 12l9-9 9 9M5 10v10h14V10"/></svg><span class="text-[9px]">홈</span></button>
+          <button class="flex flex-col items-center gap-0.5 text-amber-500"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M3 10h18" stroke="#0a0a0a" stroke-width="1.5"/></svg><span class="text-[9px] font-semibold">캘린더</span></button>
+          <button class="w-12 h-12 -mt-6 rounded-full bg-amber-500 text-zinc-950 flex items-center justify-center shadow-xl shadow-amber-500/40"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></button>
+          <button class="flex flex-col items-center gap-0.5 text-zinc-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M4 19V5m8 14V9m8 10V13"/></svg><span class="text-[9px]">분석</span></button>
+          <button class="flex flex-col items-center gap-0.5 text-zinc-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg><span class="text-[9px]">프로필</span></button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mt-5 max-w-[390px] text-sm text-stone-400 space-y-2">
+      <p>한 달 흐름이 한 화면에. <span class="text-white">종목 색 점 + 오늘 글로우 + 누락 표시</span>로 일별 상태 즉시 파악. 아래엔 <span class="text-white">주차별 볼륨 막대</span>로 페이즈 추세까지.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Notes -->
+<section class="mt-10 max-w-3xl mx-auto bg-zinc-950 border border-zinc-800 rounded-2xl p-6 text-sm text-stone-300">
+  <h3 class="font-serif-f text-lg font-bold text-white mb-3">구분 규칙</h3>
+  <div class="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[13px]">
+    <div class="flex gap-2"><span class="text-amber-500 shrink-0">◆</span><span><b class="text-white">완료</b> — 진한 점·실선 카드</span></div>
+    <div class="flex gap-2"><span class="text-amber-400 shrink-0">◆</span><span><b class="text-white">오늘</b> — 호박색 글로우 + 링</span></div>
+    <div class="flex gap-2"><span class="text-zinc-500 shrink-0">◆</span><span><b class="text-white">계획</b> — 흐린 점·점선 테두리</span></div>
+    <div class="flex gap-2"><span class="text-rose-700 shrink-0">✕</span><span><b class="text-white">누락</b> — 짙은 X 마크</span></div>
+    <div class="flex gap-2"><span class="text-zinc-700 shrink-0">—</span><span><b class="text-white">휴식</b> — 빈 셀</span></div>
+    <div class="flex gap-2"><span class="text-amber-500 shrink-0">★</span><span><b class="text-white">브릭</b> — 두 종목 점 + 호박 테두리</span></div>
+  </div>
+</section>
+
+</body>
+</html>

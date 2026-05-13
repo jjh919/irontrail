@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IronTrail · UI Mockups</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=DM+Serif+Display&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  .font-mono-j { font-family: 'JetBrains Mono', monospace; }
+  .font-serif-d { font-family: 'DM Serif Display', serif; }
+  .font-serif-f { font-family: 'Fraunces', serif; }
+
+  /* Phone frame */
+  .phone {
+    width: 380px;
+    height: 800px;
+    border-radius: 44px;
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.4), 0 0 0 8px #1a1a1a, 0 0 0 10px #2a2a2a;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 18px; left: 50%; transform: translateX(-50%);
+    width: 100px; height: 28px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 100;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .phone-screen::-webkit-scrollbar { width: 0; }
+
+  /* Forge (Dark) */
+  .forge-bg {
+    background:
+      radial-gradient(120% 60% at 50% 0%, rgba(249,115,22,0.18), transparent 60%),
+      radial-gradient(80% 40% at 100% 100%, rgba(220,38,38,0.08), transparent 60%),
+      #0a0a0a;
+  }
+  .forge-card { background: linear-gradient(180deg, #18181b, #0f0f10); border: 1px solid #27272a; }
+  .forge-num { text-shadow: 0 0 30px rgba(249,115,22,0.5); }
+  .forge-grain {
+    background-image:
+      linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
+  }
+
+  /* Calm (Light) */
+  .calm-bg { background: #fafaf7; }
+  .calm-card { background: white; box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 8px 24px -8px rgba(20,83,45,0.08); }
+  .calm-ring {
+    background: conic-gradient(#059669 0% 65%, #e7e5e4 65% 100%);
+  }
+
+  /* Editorial */
+  .ed-bg { background: #f8f7f4; }
+  .ed-hero {
+    background:
+      radial-gradient(120% 80% at 20% 0%, #1e293b, #020617);
+    position: relative;
+    overflow: hidden;
+  }
+  .ed-hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(148,163,184,0.04) 30px, rgba(148,163,184,0.04) 31px),
+      repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(148,163,184,0.04) 30px, rgba(148,163,184,0.04) 31px);
+    pointer-events: none;
+  }
+  .ed-topo { opacity: 0.15; }
+
+  /* Wave divider */
+  .scroll-x { scroll-snap-type: x mandatory; }
+  .scroll-x > * { scroll-snap-align: center; }
+</style>
+</head>
+<body class="bg-stone-100 text-stone-900 min-h-screen">
+
+<header class="border-b border-stone-200 bg-white sticky top-0 z-10 backdrop-blur">
+  <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+    <div>
+      <div class="text-xs uppercase tracking-[0.2em] text-stone-500">IronTrail</div>
+      <h1 class="font-serif-f text-2xl font-bold">홈 화면 디자인 시안</h1>
+    </div>
+    <div class="text-xs text-stone-500">3가지 방향 비교 · 같은 컨텐츠</div>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-10">
+
+<!-- Phone showcase row -->
+<div class="overflow-x-auto pb-8 scroll-x">
+  <div class="flex gap-10 min-w-max px-2">
+
+    <!-- ========================= -->
+    <!-- MOCKUP 1: FORGE (Dark)    -->
+    <!-- ========================= -->
+    <div>
+      <div class="mb-5 flex items-baseline gap-3">
+        <span class="font-mono-j text-xs text-stone-400">01</span>
+        <h2 class="font-serif-f text-xl font-bold text-stone-900">Forge</h2>
+        <span class="text-xs text-stone-500">— 다크 / 단조의 불</span>
+      </div>
+
+      <div class="phone forge-bg">
+        <div class="phone-screen forge-grain">
+
+          <!-- Status bar spacer -->
+          <div class="h-14"></div>
+
+          <!-- Header -->
+          <div class="px-6 pt-2 pb-4 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] uppercase tracking-[0.25em] text-amber-500/80 font-semibold">IRONTRAIL</div>
+              <div class="text-stone-400 text-xs mt-0.5">오늘 · 5월 13일 화</div>
+            </div>
+            <div class="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5"/></svg>
+            </div>
+          </div>
+
+          <!-- D-day hero -->
+          <div class="px-6 pt-2 pb-6">
+            <div class="flex items-baseline gap-2">
+              <div class="font-mono-j text-[10px] text-amber-500/70 tracking-widest">D — DAY</div>
+              <div class="h-px flex-1 bg-zinc-800"></div>
+              <div class="text-[10px] text-zinc-500 uppercase tracking-widest">BUILD · WK 8/16</div>
+            </div>
+            <div class="mt-3 flex items-end gap-3">
+              <div class="font-mono-j font-bold text-white text-7xl tracking-tighter forge-num leading-none">87</div>
+              <div class="pb-2 text-stone-400 text-sm">days</div>
+            </div>
+            <div class="mt-2 text-stone-300 text-sm">속초 트라이애슬론 · Olympic</div>
+            <div class="mt-1 text-stone-500 text-xs">목표 2:30:00</div>
+          </div>
+
+          <!-- Today's workout -->
+          <div class="px-6 pb-5">
+            <div class="forge-card rounded-2xl p-5">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">🏊</span>
+                  <div>
+                    <div class="text-white font-bold text-base">인터벌 수영</div>
+                    <div class="text-stone-500 text-[11px] mt-0.5">오늘의 처방 · 강도 ●●●○○</div>
+                  </div>
+                </div>
+                <div class="text-amber-500 font-mono-j text-xs">45'</div>
+              </div>
+
+              <div class="mt-4 grid grid-cols-3 gap-3 border-y border-zinc-800 py-4">
+                <div>
+                  <div class="text-zinc-600 text-[9px] uppercase tracking-wider">SET</div>
+                  <div class="text-white font-mono-j font-bold text-sm mt-1">100m × 10</div>
+                </div>
+                <div>
+                  <div class="text-zinc-600 text-[9px] uppercase tracking-wider">REST</div>
+                  <div class="text-white font-mono-j font-bold text-sm mt-1">20"</div>
+                </div>
+                <div>
+                  <div class="text-zinc-600 text-[9px] uppercase tracking-wider">PACE</div>
+                  <div class="text-white font-mono-j font-bold text-sm mt-1">1:45</div>
+                </div>
+              </div>
+
+              <div class="mt-4 flex gap-2">
+                <button class="flex-1 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-sm py-3 rounded-xl">시작하기</button>
+                <button class="px-4 py-3 text-zinc-400 text-sm border border-zinc-800 rounded-xl">건너뛰기</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Condition -->
+          <div class="px-6 pb-5">
+            <div class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 flex items-center justify-between">
+              <span>오늘의 컨디션</span>
+              <span class="text-amber-500/60">기록완료 ✓</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <div class="forge-card rounded-xl p-3">
+                <div class="text-zinc-500 text-[10px]">수면</div>
+                <div class="text-white font-mono-j font-bold text-lg mt-1">7.2<span class="text-xs text-zinc-500">h</span></div>
+              </div>
+              <div class="forge-card rounded-xl p-3">
+                <div class="text-zinc-500 text-[10px]">피로</div>
+                <div class="text-white font-mono-j font-bold text-lg mt-1">3<span class="text-xs text-zinc-500">/10</span></div>
+              </div>
+              <div class="forge-card rounded-xl p-3">
+                <div class="text-zinc-500 text-[10px]">체중</div>
+                <div class="text-white font-mono-j font-bold text-lg mt-1">68.4<span class="text-xs text-zinc-500">kg</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Week summary -->
+          <div class="px-6 pb-5">
+            <div class="forge-card rounded-2xl p-5">
+              <div class="flex items-baseline justify-between mb-3">
+                <div class="text-white text-sm font-semibold">이번 주</div>
+                <div class="text-[10px] text-zinc-500 font-mono-j">4 / 6 완료</div>
+              </div>
+              <div class="flex gap-1.5">
+                <div class="flex-1 h-12 bg-amber-500 rounded"></div>
+                <div class="flex-1 h-12 bg-amber-500 rounded"></div>
+                <div class="flex-1 h-12 bg-zinc-800 rounded flex items-center justify-center text-zinc-700 text-xs">✕</div>
+                <div class="flex-1 h-12 bg-amber-500 rounded"></div>
+                <div class="flex-1 h-12 bg-amber-500/60 rounded border border-amber-500/40"></div>
+                <div class="flex-1 h-12 bg-zinc-900 rounded border border-zinc-800"></div>
+                <div class="flex-1 h-12 bg-zinc-900 rounded border border-zinc-800"></div>
+              </div>
+              <div class="flex justify-between text-[9px] text-zinc-600 mt-2 font-mono-j">
+                <span>월</span><span>화</span><span>수</span><span>목</span><span class="text-amber-500">금</span><span>토</span><span>일</span>
+              </div>
+              <div class="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-zinc-800">
+                <div><div class="text-zinc-500 text-[9px] uppercase">시간</div><div class="text-white font-mono-j font-bold text-base">6h 20m</div></div>
+                <div><div class="text-zinc-500 text-[9px] uppercase">거리</div><div class="text-white font-mono-j font-bold text-base">65 km</div></div>
+                <div><div class="text-zinc-500 text-[9px] uppercase">TSS</div><div class="text-white font-mono-j font-bold text-base">380</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom nav placeholder -->
+          <div class="h-24"></div>
+
+          <!-- Floating tab bar -->
+          <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-zinc-900/95 backdrop-blur rounded-full px-2 py-2 border border-zinc-800 shadow-2xl">
+            <button class="w-10 h-10 rounded-full bg-amber-500 text-zinc-950 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></button>
+            <button class="w-10 h-10 rounded-full text-zinc-500 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M3 10h18M8 2v4M16 2v4"/></svg></button>
+            <button class="w-12 h-12 rounded-full bg-amber-500 text-zinc-950 flex items-center justify-center -mt-4 shadow-lg shadow-amber-500/30"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></button>
+            <button class="w-10 h-10 rounded-full text-zinc-500 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M4 19V5m8 14V9m8 10V13"/></svg></button>
+            <button class="w-10 h-10 rounded-full text-zinc-500 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg></button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="mt-5 max-w-[380px] text-sm text-stone-600 space-y-2">
+        <p class="font-semibold text-stone-900">단조의 불, 어두운 작업장</p>
+        <p>Strava·Whoop 계열. 큰 숫자, 모노 폰트, 호박색(molten amber) 포인트. <span class="text-stone-900 font-medium">"진지하게 훈련한다"</span>는 분위기. 새벽 훈련 후에도 눈에 편함.</p>
+      </div>
+    </div>
+
+    <!-- ========================= -->
+    <!-- MOCKUP 2: CALM (Light)    -->
+    <!-- ========================= -->
+    <div>
+      <div class="mb-5 flex items-baseline gap-3">
+        <span class="font-mono-j text-xs text-stone-400">02</span>
+        <h2 class="font-serif-f text-xl font-bold text-stone-900">Calm Trail</h2>
+        <span class="text-xs text-stone-500">— 라이트 / 차분한 코치</span>
+      </div>
+
+      <div class="phone calm-bg">
+        <div class="phone-screen">
+
+          <div class="h-14"></div>
+
+          <!-- Header -->
+          <div class="px-6 pt-2 pb-3 flex items-center justify-between">
+            <div>
+              <div class="text-stone-500 text-xs">좋은 아침이에요</div>
+              <div class="text-stone-900 text-lg font-semibold">민호님 👋</div>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-white border border-stone-200"></div>
+          </div>
+
+          <!-- D-day hero -->
+          <div class="px-6 pt-3 pb-5">
+            <div class="calm-card rounded-3xl p-6 relative overflow-hidden">
+              <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-emerald-50"></div>
+              <div class="absolute -right-2 top-2 text-emerald-600 text-xs font-medium">속초 · Olympic</div>
+              <div class="text-stone-500 text-xs mb-1">대회까지</div>
+              <div class="flex items-baseline gap-2">
+                <div class="text-stone-900 text-5xl font-bold tracking-tight">87</div>
+                <div class="text-stone-500 text-sm">일 남았어요</div>
+              </div>
+              <div class="mt-4 flex items-center gap-2">
+                <div class="flex-1 bg-stone-100 rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-emerald-500 h-full rounded-full" style="width: 50%"></div>
+                </div>
+                <div class="text-stone-500 text-xs">Build 8/16</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Today's workout -->
+          <div class="px-6 pb-5">
+            <div class="text-stone-500 text-xs uppercase tracking-wider mb-3 px-1">오늘의 훈련</div>
+            <div class="calm-card rounded-3xl p-6">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-3xl">🏊</div>
+                <div class="flex-1">
+                  <div class="text-stone-900 font-semibold text-base">인터벌 수영</div>
+                  <div class="text-stone-500 text-xs mt-0.5">45분 · 중강도</div>
+                </div>
+              </div>
+
+              <div class="mt-5 bg-stone-50 rounded-2xl p-4">
+                <div class="text-stone-700 text-sm">
+                  100m × 10세트, 인터벌 20초<br/>
+                  목표 페이스 <span class="text-emerald-700 font-semibold">1:45/100m</span>
+                </div>
+              </div>
+
+              <div class="mt-5 flex gap-2">
+                <button class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm py-3.5 rounded-2xl">시작하기</button>
+                <button class="px-5 py-3.5 text-stone-600 text-sm bg-stone-100 rounded-2xl">미루기</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Condition -->
+          <div class="px-6 pb-5">
+            <div class="text-stone-500 text-xs uppercase tracking-wider mb-3 px-1">컨디션</div>
+            <div class="calm-card rounded-3xl p-5">
+              <div class="flex items-center justify-around">
+                <div class="text-center">
+                  <div class="text-2xl mb-1">😴</div>
+                  <div class="text-stone-900 font-bold">7.2h</div>
+                  <div class="text-stone-500 text-[10px] mt-0.5">수면</div>
+                </div>
+                <div class="w-px h-10 bg-stone-200"></div>
+                <div class="text-center">
+                  <div class="text-2xl mb-1">😊</div>
+                  <div class="text-stone-900 font-bold">3/10</div>
+                  <div class="text-stone-500 text-[10px] mt-0.5">피로</div>
+                </div>
+                <div class="w-px h-10 bg-stone-200"></div>
+                <div class="text-center">
+                  <div class="text-2xl mb-1">⚖️</div>
+                  <div class="text-stone-900 font-bold">68.4kg</div>
+                  <div class="text-stone-500 text-[10px] mt-0.5">체중</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Week progress -->
+          <div class="px-6 pb-5">
+            <div class="calm-card rounded-3xl p-5">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <div class="text-stone-900 font-semibold">이번 주 잘 하고 있어요</div>
+                  <div class="text-stone-500 text-xs mt-0.5">계획 6회 중 4회 완료</div>
+                </div>
+                <div class="relative w-14 h-14">
+                  <div class="absolute inset-0 rounded-full calm-ring"></div>
+                  <div class="absolute inset-1.5 bg-white rounded-full flex items-center justify-center">
+                    <span class="text-emerald-700 font-bold text-sm">65%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-between items-end gap-1.5">
+                <div class="flex-1 flex flex-col items-center gap-1.5">
+                  <div class="w-full h-10 bg-emerald-200 rounded-lg"></div>
+                  <div class="text-stone-400 text-[10px]">월</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5">
+                  <div class="w-full h-14 bg-emerald-400 rounded-lg"></div>
+                  <div class="text-stone-400 text-[10px]">화</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5">
+                  <div class="w-full h-2 bg-stone-200 rounded-lg"></div>
+                  <div class="text-stone-400 text-[10px]">수</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5">
+                  <div class="w-full h-12 bg-emerald-300 rounded-lg"></div>
+                  <div class="text-stone-400 text-[10px]">목</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5">
+                  <div class="w-full h-8 bg-emerald-500 rounded-lg ring-2 ring-emerald-200"></div>
+                  <div class="text-emerald-700 text-[10px] font-bold">금</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5">
+                  <div class="w-full h-2 bg-stone-100 rounded-lg"></div>
+                  <div class="text-stone-400 text-[10px]">토</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5">
+                  <div class="w-full h-2 bg-stone-100 rounded-lg"></div>
+                  <div class="text-stone-400 text-[10px]">일</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-24"></div>
+
+          <!-- Tab bar (bottom) -->
+          <div class="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-stone-200 px-6 py-3 flex items-center justify-around">
+            <button class="flex flex-col items-center gap-0.5 text-emerald-700"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9-2 0v9h-5v-7H10v7H5v-9z"/></svg><span class="text-[9px] font-semibold">홈</span></button>
+            <button class="flex flex-col items-center gap-0.5 text-stone-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M3 10h18M8 2v4M16 2v4"/></svg><span class="text-[9px]">캘린더</span></button>
+            <button class="w-12 h-12 -mt-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-200"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></button>
+            <button class="flex flex-col items-center gap-0.5 text-stone-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M4 19V5m8 14V9m8 10V13"/></svg><span class="text-[9px]">분석</span></button>
+            <button class="flex flex-col items-center gap-0.5 text-stone-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg><span class="text-[9px]">프로필</span></button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="mt-5 max-w-[380px] text-sm text-stone-600 space-y-2">
+        <p class="font-semibold text-stone-900">차분하고 격려하는 코치</p>
+        <p>Apple Fitness·Strong 계열. 둥근 카드, 여유로운 여백, 이끼색(emerald) 포인트. 격려 톤의 문구. <span class="text-stone-900 font-medium">번아웃 방지·지속성</span>에 강함.</p>
+      </div>
+    </div>
+
+    <!-- ========================= -->
+    <!-- MOCKUP 3: EDITORIAL       -->
+    <!-- ========================= -->
+    <div>
+      <div class="mb-5 flex items-baseline gap-3">
+        <span class="font-mono-j text-xs text-stone-400">03</span>
+        <h2 class="font-serif-f text-xl font-bold text-stone-900">Trailbook</h2>
+        <span class="text-xs text-stone-500">— 매거진 / 프리미엄 저널</span>
+      </div>
+
+      <div class="phone ed-bg">
+        <div class="phone-screen">
+
+          <!-- Hero (dark editorial) -->
+          <div class="ed-hero relative">
+            <div class="h-14"></div>
+
+            <!-- Topographic decoration -->
+            <svg class="absolute inset-0 w-full h-full ed-topo" viewBox="0 0 380 400" preserveAspectRatio="none">
+              <path d="M0,200 Q95,140 190,200 T380,200" stroke="#94a3b8" stroke-width="1" fill="none"/>
+              <path d="M0,240 Q95,180 190,240 T380,240" stroke="#94a3b8" stroke-width="1" fill="none"/>
+              <path d="M0,280 Q95,220 190,280 T380,280" stroke="#94a3b8" stroke-width="1" fill="none"/>
+              <path d="M0,320 Q95,260 190,320 T380,320" stroke="#94a3b8" stroke-width="1" fill="none"/>
+              <path d="M0,360 Q95,300 190,360 T380,360" stroke="#94a3b8" stroke-width="1" fill="none"/>
+            </svg>
+
+            <div class="relative px-6 pt-4 pb-10">
+              <div class="flex items-center justify-between mb-12">
+                <div class="text-[10px] uppercase tracking-[0.3em] text-slate-400">Chapter VIII · Build</div>
+                <div class="text-[10px] text-slate-500 font-mono-j">Vol.01</div>
+              </div>
+
+              <div>
+                <div class="font-serif-d text-slate-300 text-sm italic mb-3">"the trail to 속초"</div>
+                <div class="font-serif-d text-white text-6xl leading-[0.95] tracking-tight">
+                  여든일곱<br/>
+                  <span class="text-slate-400">날의 여정</span>
+                </div>
+              </div>
+
+              <div class="mt-8 flex items-center gap-4 pt-6 border-t border-slate-700/50">
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest text-slate-500">Race</div>
+                  <div class="text-slate-200 text-sm mt-1">속초 트라이애슬론</div>
+                </div>
+                <div class="h-8 w-px bg-slate-700/50"></div>
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest text-slate-500">Phase</div>
+                  <div class="text-slate-200 text-sm mt-1">Build · 8/16</div>
+                </div>
+                <div class="h-8 w-px bg-slate-700/50"></div>
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest text-slate-500">Target</div>
+                  <div class="text-slate-200 text-sm mt-1">2:30:00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Today's session -->
+          <div class="px-6 pt-6 pb-5">
+            <div class="flex items-baseline justify-between mb-3">
+              <div class="font-serif-d text-stone-900 text-2xl">오늘의 처방</div>
+              <div class="text-[10px] uppercase tracking-widest text-stone-500 font-mono-j">May 13 · Tue</div>
+            </div>
+            <div class="bg-white rounded-sm shadow-sm border border-stone-200 overflow-hidden">
+              <div class="p-5 border-b border-stone-100">
+                <div class="flex items-baseline justify-between">
+                  <div class="flex items-baseline gap-3">
+                    <span class="font-mono-j text-stone-400 text-xs">01</span>
+                    <div>
+                      <div class="font-serif-d text-stone-900 text-xl">인터벌 수영</div>
+                      <div class="text-stone-500 text-xs mt-0.5">Threshold · 45분 · 강도 III</div>
+                    </div>
+                  </div>
+                  <span class="text-2xl">🏊</span>
+                </div>
+              </div>
+              <div class="p-5 grid grid-cols-3 divide-x divide-stone-200">
+                <div>
+                  <div class="text-[9px] uppercase tracking-widest text-stone-500">Set</div>
+                  <div class="font-mono-j text-stone-900 font-bold text-sm mt-1">100m × 10</div>
+                </div>
+                <div class="pl-4">
+                  <div class="text-[9px] uppercase tracking-widest text-stone-500">Rest</div>
+                  <div class="font-mono-j text-stone-900 font-bold text-sm mt-1">20"</div>
+                </div>
+                <div class="pl-4">
+                  <div class="text-[9px] uppercase tracking-widest text-stone-500">Pace</div>
+                  <div class="font-mono-j text-stone-900 font-bold text-sm mt-1">1:45</div>
+                </div>
+              </div>
+              <div class="p-4 bg-stone-900 flex">
+                <button class="flex-1 text-white text-sm font-semibold py-2 tracking-wide uppercase">— Begin Session —</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vitals row -->
+          <div class="px-6 pb-5">
+            <div class="flex items-baseline justify-between mb-3">
+              <div class="font-serif-d text-stone-900 text-xl">컨디션</div>
+              <div class="text-[10px] uppercase tracking-widest text-stone-500">Vitals</div>
+            </div>
+            <div class="grid grid-cols-3 gap-px bg-stone-200 border border-stone-200">
+              <div class="bg-white p-4">
+                <div class="text-[9px] uppercase tracking-widest text-stone-500">Sleep</div>
+                <div class="font-serif-d text-stone-900 text-2xl mt-1">7.2<span class="text-sm text-stone-400 font-sans">h</span></div>
+              </div>
+              <div class="bg-white p-4">
+                <div class="text-[9px] uppercase tracking-widest text-stone-500">Fatigue</div>
+                <div class="font-serif-d text-stone-900 text-2xl mt-1">3<span class="text-sm text-stone-400 font-sans">/10</span></div>
+              </div>
+              <div class="bg-white p-4">
+                <div class="text-[9px] uppercase tracking-widest text-stone-500">Weight</div>
+                <div class="font-serif-d text-stone-900 text-2xl mt-1">68.4<span class="text-xs text-stone-400 font-sans">kg</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Week strip -->
+          <div class="px-6 pb-5">
+            <div class="flex items-baseline justify-between mb-3">
+              <div class="font-serif-d text-stone-900 text-xl">주간 항적</div>
+              <div class="text-[10px] uppercase tracking-widest text-stone-500 font-mono-j">4/6 · W19</div>
+            </div>
+            <div class="bg-white border border-stone-200 p-4">
+              <div class="flex items-end gap-2 h-16">
+                <div class="flex-1 bg-stone-800 rounded-sm" style="height: 60%"></div>
+                <div class="flex-1 bg-stone-800 rounded-sm" style="height: 80%"></div>
+                <div class="flex-1 bg-stone-200 rounded-sm" style="height: 10%"></div>
+                <div class="flex-1 bg-stone-800 rounded-sm" style="height: 70%"></div>
+                <div class="flex-1 bg-stone-800 rounded-sm ring-2 ring-amber-400 ring-offset-2" style="height: 50%"></div>
+                <div class="flex-1 bg-stone-100 rounded-sm border border-stone-200" style="height: 10%"></div>
+                <div class="flex-1 bg-stone-100 rounded-sm border border-stone-200" style="height: 10%"></div>
+              </div>
+              <div class="flex justify-between mt-2 text-[9px] text-stone-400 font-mono-j uppercase">
+                <span>M</span><span>T</span><span>W</span><span>T</span><span class="text-stone-900 font-bold">F</span><span>S</span><span>S</span>
+              </div>
+              <div class="border-t border-stone-100 mt-4 pt-4 flex justify-between">
+                <div><div class="text-[9px] uppercase text-stone-400">Time</div><div class="font-mono-j text-stone-900 font-bold text-sm">6h 20m</div></div>
+                <div><div class="text-[9px] uppercase text-stone-400">Distance</div><div class="font-mono-j text-stone-900 font-bold text-sm">65 km</div></div>
+                <div><div class="text-[9px] uppercase text-stone-400">Load</div><div class="font-mono-j text-stone-900 font-bold text-sm">380</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-24"></div>
+
+          <!-- Tab bar (bottom, minimal) -->
+          <div class="absolute bottom-0 left-0 right-0 bg-stone-900 text-white">
+            <div class="flex items-center justify-between px-6 py-4">
+              <button class="text-[10px] uppercase tracking-widest font-semibold">Home</button>
+              <button class="text-[10px] uppercase tracking-widest text-stone-500">Trail</button>
+              <button class="w-10 h-10 rounded-full bg-white text-stone-900 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></button>
+              <button class="text-[10px] uppercase tracking-widest text-stone-500">Stats</button>
+              <button class="text-[10px] uppercase tracking-widest text-stone-500">Me</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="mt-5 max-w-[380px] text-sm text-stone-600 space-y-2">
+        <p class="font-semibold text-stone-900">훈련 일지를 한 권의 책처럼</p>
+        <p>매거진 레이아웃 + 세리프 표제. "Chapter VIII"처럼 여정을 챕터로 표현. <span class="text-stone-900 font-medium">고급스럽고 의미감 있는</span> 톤. 기록을 다시 들춰보고 싶게 만듦.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Decision helper -->
+<section class="mt-8 max-w-3xl mx-auto bg-white border border-stone-200 rounded-2xl p-8">
+  <h3 class="font-serif-f text-xl font-bold mb-4">어떻게 고를까</h3>
+  <div class="space-y-3 text-sm text-stone-700">
+    <div class="flex gap-3"><span class="font-mono-j text-stone-400 shrink-0">01</span><div><span class="font-semibold">Forge</span> — 새벽 5시, 진지하게 훈련하는 트라이애슬리트의 도구. 강도·숫자가 먼저.</div></div>
+    <div class="flex gap-3"><span class="font-mono-j text-stone-400 shrink-0">02</span><div><span class="font-semibold">Calm Trail</span> — 꾸준함이 핵심. 부담 적고 친근. 가끔 쉬어도 괜찮다는 분위기.</div></div>
+    <div class="flex gap-3"><span class="font-mono-j text-stone-400 shrink-0">03</span><div><span class="font-semibold">Trailbook</span> — 훈련의 의미·서사를 중시. 대회 끝나고 다시 펼쳐보고 싶은 기록.</div></div>
+  </div>
+  <div class="mt-6 pt-6 border-t border-stone-200 text-xs text-stone-500">
+    셋 중 하나로 가도 되고, 두 시안 사이의 톤을 섞을 수도 있습니다 (예: Forge의 다크 + Trailbook의 세리프 헤드라인).
+  </div>
+</section>
+
+<footer class="mt-12 pt-8 border-t border-stone-200 text-center text-xs text-stone-400">
+  IronTrail · 디자인 시안 — 같은 컨텐츠, 다른 톤
+</footer>
+
+</main>
+
+</body>
+</html>
