@@ -9,7 +9,7 @@ export default function LogPage() {
         <h1 className="text-white text-2xl font-serif mt-1">무엇을 남길까요</h1>
       </header>
 
-      <div className="space-y-3 pt-2">
+      <div className="flex flex-col gap-3 pt-2">
         <LogLink
           href="/log/workout"
           emoji="🏃"
