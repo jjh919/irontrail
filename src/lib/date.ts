@@ -67,3 +67,30 @@ export function formatDuration(seconds: number): string {
 function pad(n: number): string {
   return n.toString().padStart(2, "0");
 }
+
+/**
+ * Parse a pace string in "mm:ss" or "ss" form into total seconds.
+ * "1:42" → 102. "4:30" → 270. "270" → 270.
+ */
+export function parsePaceMmSs(raw: string | null | undefined): number | null {
+  if (!raw) return null;
+  const trimmed = String(raw).trim();
+  if (!trimmed) return null;
+  const colon = /^(\d+):(\d{1,2})$/.exec(trimmed);
+  if (colon) {
+    const min = parseInt(colon[1], 10);
+    const sec = parseInt(colon[2], 10);
+    if (sec >= 60) return null;
+    const total = min * 60 + sec;
+    return total > 0 ? total : null;
+  }
+  const n = parseInt(trimmed, 10);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+/** Format pace seconds back to "m:ss". */
+export function formatPace(seconds: number): string {
+  const min = Math.floor(seconds / 60);
+  const sec = Math.round(seconds % 60);
+  return `${min}:${pad(sec)}`;
+}

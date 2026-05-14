@@ -10,6 +10,21 @@ import type { Sport } from "@/lib/supabase/database.types";
 
 const SPORTS: Sport[] = ["swim", "bike", "run", "weight", "other"];
 
+const STROKE_OPTIONS: Array<{ value: string; label: string }> = [
+  { value: "freestyle", label: "자유형" },
+  { value: "backstroke", label: "배영" },
+  { value: "breaststroke", label: "평영" },
+  { value: "butterfly", label: "접영" },
+  { value: "medley", label: "혼영" },
+  { value: "mixed", label: "혼합" },
+];
+
+const POOL_OPTIONS: Array<{ value: string; label: string }> = [
+  { value: "25", label: "25m" },
+  { value: "50", label: "50m" },
+  { value: "0", label: "오픈워터" },
+];
+
 export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
   const [sport, setSport] = useState<Sport>("bike");
   const [rpe, setRpe] = useState(5);
@@ -39,9 +54,7 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
 
         {/* Sport */}
         <section>
-          <div className="text-zinc-500 text-[11px] uppercase tracking-widest mb-2.5 px-1">
-            종목
-          </div>
+          <SectionLabel>종목</SectionLabel>
           <div className="grid grid-cols-5 gap-2">
             {SPORTS.map((s) => {
               const c = sportConfig[s];
@@ -76,11 +89,9 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
           </div>
         </section>
 
-        {/* When */}
+        {/* Date */}
         <section>
-          <div className="text-zinc-500 text-[11px] uppercase tracking-widest mb-2.5 px-1">
-            언제
-          </div>
+          <SectionLabel>언제</SectionLabel>
           <label className="forge-card rounded-2xl p-4 flex items-center gap-3 cursor-text">
             <span className="text-zinc-500 text-xs uppercase">날짜</span>
             <input
@@ -93,56 +104,127 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
           </label>
         </section>
 
-        {/* Metrics */}
+        {/* Common metrics */}
         <section>
-          <div className="text-zinc-500 text-[11px] uppercase tracking-widest mb-2.5 px-1">
-            측정
-          </div>
+          <SectionLabel>기본 측정</SectionLabel>
           <div className="grid grid-cols-2 gap-2">
             <MetricField label="시간" suffix="h:mm">
-              <input
-                name="duration"
-                inputMode="decimal"
-                placeholder="1:25"
-                className="bg-transparent text-white font-mono font-bold text-2xl w-full outline-none placeholder:text-zinc-700"
-              />
+              <TextInput name="duration" placeholder="1:25" inputMode="decimal" />
             </MetricField>
-            <MetricField label="거리" suffix="km">
-              <input
-                name="distance_km"
-                type="number"
-                inputMode="decimal"
-                step="0.01"
-                min="0"
-                placeholder="42.5"
-                className="bg-transparent text-white font-mono font-bold text-2xl w-full outline-none placeholder:text-zinc-700"
-              />
-            </MetricField>
+            {sport !== "weight" && sport !== "other" ? (
+              <MetricField
+                label="거리"
+                suffix={sport === "swim" ? "m" : "km"}
+              >
+                <NumInput
+                  name="distance"
+                  placeholder={sport === "swim" ? "1500" : "42.5"}
+                  step={sport === "swim" ? "10" : "0.01"}
+                />
+              </MetricField>
+            ) : (
+              <MetricField label="거리 (선택)" suffix="km">
+                <NumInput name="distance" placeholder="—" step="0.01" />
+              </MetricField>
+            )}
             <MetricField label="평균 심박" suffix="bpm">
-              <input
-                name="avg_hr"
-                type="number"
-                inputMode="numeric"
-                min="1"
-                max="249"
-                placeholder="142"
-                className="bg-transparent text-white font-mono font-bold text-2xl w-full outline-none placeholder:text-zinc-700"
-              />
+              <NumInput name="avg_hr" placeholder="142" min="1" max="249" />
             </MetricField>
-            <RpeField value={rpe} onChange={setRpe} />
+            <MetricField label="최대 심박" suffix="bpm">
+              <NumInput name="max_hr" placeholder="172" min="1" max="249" />
+            </MetricField>
           </div>
+        </section>
+
+        {/* Sport-specific metrics */}
+        {sport === "swim" && (
+          <section>
+            <SectionLabel>수영 디테일</SectionLabel>
+            <div className="space-y-2">
+              <div className="grid grid-cols-2 gap-2">
+                <MetricField label="페이스" suffix="/100m">
+                  <TextInput
+                    name="avg_pace_s"
+                    placeholder="1:42"
+                    inputMode="decimal"
+                  />
+                </MetricField>
+                <SelectField label="풀 길이" name="pool_length_m">
+                  <option value="">선택</option>
+                  {POOL_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </SelectField>
+              </div>
+              <SelectField label="영법" name="stroke_style">
+                <option value="">선택 (자유 기록은 비워둠)</option>
+                {STROKE_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </SelectField>
+            </div>
+          </section>
+        )}
+
+        {sport === "bike" && (
+          <section>
+            <SectionLabel>사이클 디테일</SectionLabel>
+            <div className="grid grid-cols-2 gap-2">
+              <MetricField label="평균 속도" suffix="km/h">
+                <NumInput name="avg_speed_kmh" placeholder="32.5" step="0.1" />
+              </MetricField>
+              <MetricField label="누적 고도" suffix="m">
+                <NumInput name="elevation_gain_m" placeholder="540" />
+              </MetricField>
+              <MetricField label="케이던스" suffix="rpm">
+                <NumInput name="avg_cadence" placeholder="88" />
+              </MetricField>
+              <MetricField label="평균 파워" suffix="W">
+                <NumInput name="avg_power_w" placeholder="220" />
+              </MetricField>
+            </div>
+          </section>
+        )}
+
+        {sport === "run" && (
+          <section>
+            <SectionLabel>러닝 디테일</SectionLabel>
+            <div className="grid grid-cols-2 gap-2">
+              <MetricField label="페이스" suffix="/km">
+                <TextInput
+                  name="avg_pace_s"
+                  placeholder="4:30"
+                  inputMode="decimal"
+                />
+              </MetricField>
+              <MetricField label="케이던스" suffix="spm">
+                <NumInput name="avg_cadence" placeholder="172" />
+              </MetricField>
+              <MetricField label="누적 고도" suffix="m">
+                <NumInput name="elevation_gain_m" placeholder="120" />
+              </MetricField>
+            </div>
+          </section>
+        )}
+
+        {/* RPE */}
+        <section>
+          <SectionLabel>강도</SectionLabel>
+          <RpeField value={rpe} onChange={setRpe} />
         </section>
 
         {/* Notes */}
         <section>
-          <div className="text-zinc-500 text-[11px] uppercase tracking-widest mb-2.5 px-1">
-            메모
-          </div>
+          <SectionLabel>메모</SectionLabel>
           <div className="forge-card rounded-2xl p-4">
             <textarea
               name="notes"
               rows={3}
-              placeholder="Z2 유지하면서 LSD 라이딩. 후반 다리 좀 무거워짐."
+              placeholder={notesPlaceholder(sport)}
               className="w-full bg-transparent text-zinc-200 text-sm outline-none resize-none placeholder:text-zinc-700"
             />
           </div>
@@ -189,6 +271,14 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
   );
 }
 
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="text-zinc-500 text-[11px] uppercase tracking-widest mb-2.5 px-1">
+      {children}
+    </div>
+  );
+}
+
 function MetricField({
   label,
   suffix,
@@ -209,6 +299,76 @@ function MetricField({
   );
 }
 
+function TextInput({
+  name,
+  placeholder,
+  inputMode,
+}: {
+  name: string;
+  placeholder: string;
+  inputMode?: "decimal" | "numeric" | "text";
+}) {
+  return (
+    <input
+      name={name}
+      type="text"
+      inputMode={inputMode ?? "text"}
+      placeholder={placeholder}
+      className="bg-transparent text-white font-mono font-bold text-2xl w-full outline-none placeholder:text-zinc-700"
+    />
+  );
+}
+
+function NumInput({
+  name,
+  placeholder,
+  step,
+  min,
+  max,
+}: {
+  name: string;
+  placeholder: string;
+  step?: string;
+  min?: string;
+  max?: string;
+}) {
+  return (
+    <input
+      name={name}
+      type="number"
+      inputMode="decimal"
+      placeholder={placeholder}
+      step={step}
+      min={min}
+      max={max}
+      className="bg-transparent text-white font-mono font-bold text-2xl w-full outline-none placeholder:text-zinc-700"
+    />
+  );
+}
+
+function SelectField({
+  label,
+  name,
+  children,
+}: {
+  label: string;
+  name: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="forge-card rounded-2xl p-4 cursor-pointer">
+      <div className="text-zinc-500 text-[10px] uppercase mb-1">{label}</div>
+      <select
+        name={name}
+        defaultValue=""
+        className="w-full bg-transparent text-white text-base outline-none appearance-none [color-scheme:dark]"
+      >
+        {children}
+      </select>
+    </label>
+  );
+}
+
 function RpeField({
   value,
   onChange,
@@ -218,12 +378,14 @@ function RpeField({
 }) {
   return (
     <div className="forge-card rounded-2xl p-4">
-      <div className="text-zinc-500 text-[10px] uppercase mb-1">강도 RPE</div>
-      <div className="flex items-baseline gap-1">
-        <span className="text-white font-mono font-bold text-2xl">{value}</span>
-        <span className="text-xs text-zinc-500">/10</span>
+      <div className="flex items-baseline justify-between mb-2">
+        <div className="text-zinc-500 text-[10px] uppercase">RPE</div>
+        <div>
+          <span className="text-white font-mono font-bold text-2xl">{value}</span>
+          <span className="text-xs text-zinc-500 ml-1">/10</span>
+        </div>
       </div>
-      <div className="flex gap-0.5 mt-2">
+      <div className="flex gap-0.5">
         {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
           <button
             key={n}
@@ -231,7 +393,7 @@ function RpeField({
             onClick={() => onChange(n)}
             aria-label={`RPE ${n}`}
             className={cn(
-              "flex-1 h-1.5 rounded transition",
+              "flex-1 h-2.5 rounded transition",
               n <= value ? "bg-amber-500" : "bg-zinc-800",
             )}
           />
@@ -239,4 +401,19 @@ function RpeField({
       </div>
     </div>
   );
+}
+
+function notesPlaceholder(sport: Sport): string {
+  switch (sport) {
+    case "swim":
+      return "물 컨디션, 호흡, 영법 별 페이스 차이 등";
+    case "bike":
+      return "Z2 유지, 후반 다리 무거움. 코스 평지/언덕.";
+    case "run":
+      return "포어풋 착지 의식. 호흡 안정. 컨디션.";
+    case "weight":
+      return "벤치 3×8 60kg, 스쿼트 4×6 80kg ...";
+    default:
+      return "오늘 운동 메모";
+  }
 }

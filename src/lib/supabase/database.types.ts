@@ -159,6 +159,13 @@ type WorkoutsRow = {
   is_brick: boolean;
   parent_workout_id: string | null;
   gear_id: string | null;
+  avg_pace_s: number | null;
+  avg_speed_kmh: number | null;
+  elevation_gain_m: number | null;
+  avg_cadence: number | null;
+  avg_power_w: number | null;
+  pool_length_m: number | null;
+  stroke_style: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -178,6 +185,13 @@ type WorkoutsInsert = {
   is_brick?: boolean;
   parent_workout_id?: string | null;
   gear_id?: string | null;
+  avg_pace_s?: number | null;
+  avg_speed_kmh?: number | null;
+  elevation_gain_m?: number | null;
+  avg_cadence?: number | null;
+  avg_power_w?: number | null;
+  pool_length_m?: number | null;
+  stroke_style?: string | null;
   created_at?: string;
   updated_at?: string;
 };
