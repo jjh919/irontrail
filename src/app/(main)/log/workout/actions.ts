@@ -51,6 +51,7 @@ export async function saveWorkout(
     });
     createdId = created.id;
   } catch (e) {
+    console.error("[saveWorkout] createWorkout failed:", e);
     return { error: friendlyError(e) };
   }
 
@@ -113,7 +114,25 @@ function textOrNull(v: FormDataEntryValue | null): string | null {
 }
 
 function friendlyError(e: unknown): string {
-  const msg = e instanceof Error ? e.message : String(e);
+  let msg = "";
+  if (e instanceof Error) {
+    msg = e.message;
+  } else if (typeof e === "object" && e !== null) {
+    // Supabase PostgrestError shape: { message, details, hint, code }
+    const obj = e as Record<string, unknown>;
+    msg = String(
+      obj.message ?? obj.details ?? obj.hint ?? obj.code ?? JSON.stringify(e),
+    );
+  } else {
+    msg = String(e);
+  }
+
+  if (/null value in column "user_id"/i.test(msg)) {
+    return "user_id 기본값이 설정 안 됐어요. 마이그레이션 003 적용했는지 Supabase 대시보드에서 확인하세요.";
+  }
+  if (/row-level security|new row violates row-level security/i.test(msg)) {
+    return "RLS 정책에 막혔어요. 로그인 상태가 만료됐을 수 있습니다 — 로그아웃 후 다시 로그인해 주세요.";
+  }
   if (/violates check constraint.*hr/i.test(msg))
     return "심박수는 1–249 사이여야 합니다.";
   if (/violates check constraint.*rpe/i.test(msg))
