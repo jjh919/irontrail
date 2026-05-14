@@ -79,9 +79,10 @@ export async function saveWorkout(
 
 function pickSportFields(sport: Sport, fd: FormData): Partial<WorkoutInput> {
   if (sport === "swim") {
+    const poolRaw = String(fd.get("pool_length_m") ?? "").trim();
     return {
       avg_pace_s: parsePaceMmSs(String(fd.get("avg_pace_s") ?? "")),
-      pool_length_m: intOrNull(fd.get("pool_length_m")),
+      pool_length_m: poolRaw === "open" ? null : intOrNull(poolRaw),
       stroke_style: textOrNull(fd.get("stroke_style")),
     };
   }

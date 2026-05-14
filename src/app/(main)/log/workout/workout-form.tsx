@@ -22,12 +22,14 @@ const STROKE_OPTIONS: Array<{ value: string; label: string }> = [
 const POOL_OPTIONS: Array<{ value: string; label: string }> = [
   { value: "25", label: "25m" },
   { value: "50", label: "50m" },
-  { value: "0", label: "오픈워터" },
+  { value: "open", label: "오픈워터" },
 ];
 
 export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
   const [sport, setSport] = useState<Sport>("bike");
   const [rpe, setRpe] = useState(5);
+  const [poolLength, setPoolLength] = useState("");
+  const [stroke, setStroke] = useState("");
   const [state, formAction, isPending] = useActionState<SaveWorkoutState, FormData>(
     saveWorkout,
     undefined,
@@ -37,6 +39,8 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
     <form action={formAction}>
       <input type="hidden" name="sport" value={sport} />
       <input type="hidden" name="rpe" value={rpe} />
+      <input type="hidden" name="pool_length_m" value={poolLength} />
+      <input type="hidden" name="stroke_style" value={stroke} />
 
       <div className="px-6 pt-8 pb-40 space-y-5">
         {/* Header */}
@@ -138,35 +142,44 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
 
         {/* Sport-specific metrics */}
         {sport === "swim" && (
-          <section>
+          <section className="space-y-2">
             <SectionLabel>수영 디테일</SectionLabel>
-            <div className="space-y-2">
-              <div className="grid grid-cols-2 gap-2">
-                <MetricField label="페이스" suffix="/100m">
-                  <TextInput
-                    name="avg_pace_s"
-                    placeholder="1:42"
-                    inputMode="decimal"
-                  />
-                </MetricField>
-                <SelectField label="풀 길이" name="pool_length_m">
-                  <option value="">선택</option>
-                  {POOL_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </SelectField>
-              </div>
-              <SelectField label="영법" name="stroke_style">
-                <option value="">선택 (자유 기록은 비워둠)</option>
-                {STROKE_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </SelectField>
-            </div>
+
+            <MetricField label="페이스" suffix="/100m">
+              <TextInput
+                name="avg_pace_s"
+                placeholder="1:42"
+                inputMode="decimal"
+              />
+            </MetricField>
+
+            <ChipsCard label="풀 길이" cols={3}>
+              {POOL_OPTIONS.map((o) => (
+                <Chip
+                  key={o.value}
+                  active={poolLength === o.value}
+                  onClick={() =>
+                    setPoolLength(poolLength === o.value ? "" : o.value)
+                  }
+                >
+                  {o.label}
+                </Chip>
+              ))}
+            </ChipsCard>
+
+            <ChipsCard label="영법" wrap>
+              {STROKE_OPTIONS.map((o) => (
+                <Chip
+                  key={o.value}
+                  active={stroke === o.value}
+                  onClick={() =>
+                    setStroke(stroke === o.value ? "" : o.value)
+                  }
+                >
+                  {o.label}
+                </Chip>
+              ))}
+            </ChipsCard>
           </section>
         )}
 
@@ -346,26 +359,57 @@ function NumInput({
   );
 }
 
-function SelectField({
+function ChipsCard({
   label,
-  name,
+  cols,
+  wrap,
   children,
 }: {
   label: string;
-  name: string;
+  cols?: number;
+  wrap?: boolean;
+  children: React.ReactNode;
+}) {
+  const grid = cols
+    ? cols === 3
+      ? "grid grid-cols-3 gap-2"
+      : cols === 2
+        ? "grid grid-cols-2 gap-2"
+        : "grid grid-cols-4 gap-2"
+    : wrap
+      ? "flex flex-wrap gap-2"
+      : "flex gap-2";
+  return (
+    <div className="forge-card rounded-2xl p-4">
+      <div className="text-zinc-500 text-[10px] uppercase mb-3">{label}</div>
+      <div className={grid}>{children}</div>
+    </div>
+  );
+}
+
+function Chip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
   children: React.ReactNode;
 }) {
   return (
-    <label className="forge-card rounded-2xl p-4 cursor-pointer">
-      <div className="text-zinc-500 text-[10px] uppercase mb-1">{label}</div>
-      <select
-        name={name}
-        defaultValue=""
-        className="w-full bg-transparent text-white text-base outline-none appearance-none [color-scheme:dark]"
-      >
-        {children}
-      </select>
-    </label>
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={cn(
+        "px-4 py-2.5 rounded-xl border text-sm transition active:scale-95",
+        active
+          ? "bg-amber-500/15 border-amber-500/50 text-amber-300 font-bold shadow-[0_0_10px_rgba(245,158,11,0.2)]"
+          : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700",
+      )}
+    >
+      {children}
+    </button>
   );
 }
 
