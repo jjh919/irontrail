@@ -120,36 +120,90 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
           <DateField name="workout_date" defaultDate={defaultDate} />
         </section>
 
-        {/* Common metrics */}
+        {/* Body parts — weight only, placed BEFORE metrics */}
+        {sport === "weight" && (
+          <section>
+            <SectionLabel>부위 (복수 선택)</SectionLabel>
+            <div className="flex flex-wrap gap-2">
+              {BODY_PARTS.map((p) => (
+                <Chip
+                  key={p.key}
+                  active={bodyParts.includes(p.key)}
+                  onClick={() => toggleBodyPart(p.key)}
+                >
+                  {p.label}
+                </Chip>
+              ))}
+            </div>
+            <div className="text-zinc-600 text-[11px] mt-2 px-1">
+              💡 추후 운동 사진 업로드 → AI가 부위·세트·볼륨 자동 분석 예정
+            </div>
+          </section>
+        )}
+
+        {/* Measurements */}
         <section>
-          <SectionLabel>기본 측정</SectionLabel>
-          <div className="grid grid-cols-2 gap-2">
-            <MetricField label="시간" suffix="h:mm">
-              <TextInput name="duration" placeholder="1:25" inputMode="decimal" />
-            </MetricField>
-            {sport !== "weight" && sport !== "other" ? (
-              <MetricField
-                label="거리"
-                suffix={sport === "swim" ? "m" : "km"}
-              >
-                <NumInput
-                  name="distance"
-                  placeholder={sport === "swim" ? "1500" : "42.5"}
-                  step={sport === "swim" ? "10" : "0.01"}
+          <SectionLabel>{sport === "weight" ? "측정" : "기본 측정"}</SectionLabel>
+
+          {sport === "weight" ? (
+            <div className="space-y-2">
+              <MetricField label="시간" suffix="h:mm">
+                <TextInput
+                  name="duration"
+                  placeholder="1:25"
+                  inputMode="decimal"
                 />
               </MetricField>
-            ) : (
-              <MetricField label="거리 (선택)" suffix="km">
-                <NumInput name="distance" placeholder="—" step="0.01" />
+              <div className="grid grid-cols-2 gap-2">
+                <MetricField label="세트 수" suffix="세트">
+                  <NumInput name="total_sets" placeholder="19" min="1" />
+                </MetricField>
+                <MetricField label="총 reps" suffix="회">
+                  <NumInput name="total_reps" placeholder="250" min="1" />
+                </MetricField>
+              </div>
+              <MetricField label="총 볼륨" suffix="kg">
+                <NumInput
+                  name="volume_kg"
+                  placeholder="8521"
+                  step="0.1"
+                  min="0"
+                />
               </MetricField>
-            )}
-            <MetricField label="평균 심박" suffix="bpm">
-              <NumInput name="avg_hr" placeholder="142" min="1" max="249" />
-            </MetricField>
-            <MetricField label="최대 심박" suffix="bpm">
-              <NumInput name="max_hr" placeholder="172" min="1" max="249" />
-            </MetricField>
-          </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-2">
+              <MetricField label="시간" suffix="h:mm">
+                <TextInput
+                  name="duration"
+                  placeholder="1:25"
+                  inputMode="decimal"
+                />
+              </MetricField>
+              {sport !== "other" ? (
+                <MetricField
+                  label="거리"
+                  suffix={sport === "swim" ? "m" : "km"}
+                >
+                  <NumInput
+                    name="distance"
+                    placeholder={sport === "swim" ? "1500" : "42.5"}
+                    step={sport === "swim" ? "10" : "0.01"}
+                  />
+                </MetricField>
+              ) : (
+                <MetricField label="거리 (선택)" suffix="km">
+                  <NumInput name="distance" placeholder="—" step="0.01" />
+                </MetricField>
+              )}
+              <MetricField label="평균 심박" suffix="bpm">
+                <NumInput name="avg_hr" placeholder="142" min="1" max="249" />
+              </MetricField>
+              <MetricField label="최대 심박" suffix="bpm">
+                <NumInput name="max_hr" placeholder="172" min="1" max="249" />
+              </MetricField>
+            </div>
+          )}
         </section>
 
         {/* Sport-specific metrics */}
@@ -232,46 +286,6 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
               <MetricField label="누적 고도" suffix="m">
                 <NumInput name="elevation_gain_m" placeholder="120" />
               </MetricField>
-            </div>
-          </section>
-        )}
-
-        {sport === "weight" && (
-          <section className="space-y-2">
-            <SectionLabel>웨이트 디테일</SectionLabel>
-
-            <ChipsCard label="부위 (복수 선택)" wrap>
-              {BODY_PARTS.map((p) => (
-                <Chip
-                  key={p.key}
-                  active={bodyParts.includes(p.key)}
-                  onClick={() => toggleBodyPart(p.key)}
-                >
-                  {p.label}
-                </Chip>
-              ))}
-            </ChipsCard>
-
-            <div className="grid grid-cols-2 gap-2">
-              <MetricField label="세트 수" suffix="세트">
-                <NumInput name="total_sets" placeholder="19" min="1" />
-              </MetricField>
-              <MetricField label="총 reps" suffix="회">
-                <NumInput name="total_reps" placeholder="250" min="1" />
-              </MetricField>
-            </div>
-
-            <MetricField label="총 볼륨" suffix="kg">
-              <NumInput
-                name="volume_kg"
-                placeholder="8521"
-                step="0.1"
-                min="0"
-              />
-            </MetricField>
-
-            <div className="text-zinc-600 text-[11px] px-1">
-              💡 다음 단계에서 운동 사진 업로드 → AI가 부위·세트·볼륨 자동 분석 예정
             </div>
           </section>
         )}
