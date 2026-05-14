@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { sportConfig } from "@/lib/calendar";
+import { DateField } from "@/components/ui/date-field";
 import { saveWorkout, type SaveWorkoutState } from "./actions";
 import type { Sport } from "@/lib/supabase/database.types";
 
@@ -15,7 +16,6 @@ const STROKE_OPTIONS: Array<{ value: string; label: string }> = [
   { value: "backstroke", label: "배영" },
   { value: "breaststroke", label: "평영" },
   { value: "butterfly", label: "접영" },
-  { value: "medley", label: "혼영" },
   { value: "mixed", label: "혼합" },
 ];
 
@@ -117,16 +117,7 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
         {/* Date */}
         <section>
           <SectionLabel>언제</SectionLabel>
-          <label className="forge-card rounded-2xl p-4 flex items-center gap-3 cursor-text">
-            <span className="text-zinc-500 text-xs uppercase">날짜</span>
-            <input
-              name="workout_date"
-              type="date"
-              defaultValue={defaultDate}
-              required
-              className="flex-1 bg-transparent text-white font-mono text-base outline-none [color-scheme:dark]"
-            />
-          </label>
+          <DateField name="workout_date" defaultDate={defaultDate} />
         </section>
 
         {/* Common metrics */}
