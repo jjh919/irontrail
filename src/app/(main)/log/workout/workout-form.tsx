@@ -32,8 +32,6 @@ const BODY_PARTS: Array<{ key: string; label: string }> = [
   { key: "biceps", label: "이두" },
   { key: "triceps", label: "삼두" },
   { key: "legs", label: "하체" },
-  { key: "core", label: "코어" },
-  { key: "full_body", label: "전신" },
 ];
 
 export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
