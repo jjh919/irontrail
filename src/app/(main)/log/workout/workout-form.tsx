@@ -302,13 +302,15 @@ function MetricField({
   children: React.ReactNode;
 }) {
   return (
-    <label className="forge-card rounded-2xl p-4 cursor-text">
-      <div className="text-zinc-500 text-[10px] uppercase mb-1">{label}</div>
-      <div className="flex items-baseline gap-1">
-        {children}
-        <span className="text-zinc-500 text-xs whitespace-nowrap">{suffix}</span>
+    <div className="forge-card rounded-2xl p-4">
+      <div className="text-zinc-500 text-[10px] uppercase mb-1.5">{label}</div>
+      <div className="flex items-end gap-2">
+        <div className="flex-1 min-w-0">{children}</div>
+        <span className="text-zinc-500 text-xs whitespace-nowrap pb-1">
+          {suffix}
+        </span>
       </div>
-    </label>
+    </div>
   );
 }
 
@@ -327,7 +329,7 @@ function TextInput({
       type="text"
       inputMode={inputMode ?? "text"}
       placeholder={placeholder}
-      className="bg-transparent text-white font-mono font-bold text-2xl w-full outline-none placeholder:text-zinc-700"
+      className="bg-transparent text-white font-mono font-bold text-2xl leading-7 w-full outline-none border-0 p-0 placeholder:text-zinc-700"
     />
   );
 }
@@ -354,7 +356,7 @@ function NumInput({
       step={step}
       min={min}
       max={max}
-      className="bg-transparent text-white font-mono font-bold text-2xl w-full outline-none placeholder:text-zinc-700"
+      className="bg-transparent text-white font-mono font-bold text-2xl leading-7 w-full outline-none border-0 p-0 placeholder:text-zinc-700"
     />
   );
 }

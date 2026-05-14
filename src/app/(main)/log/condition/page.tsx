@@ -47,7 +47,7 @@ export default async function ConditionPage() {
             max="24"
             defaultValue={current?.sleep_h ?? ""}
             placeholder="7.5"
-            className="bg-transparent text-white font-mono font-bold text-3xl w-24 outline-none placeholder:text-zinc-700"
+            className="bg-transparent text-white font-mono font-bold text-3xl leading-8 border-0 p-0 w-24 outline-none placeholder:text-zinc-700"
           />
         </FieldCard>
 
@@ -60,7 +60,7 @@ export default async function ConditionPage() {
             max="10"
             defaultValue={current?.fatigue ?? ""}
             placeholder="3"
-            className="bg-transparent text-white font-mono font-bold text-3xl w-20 outline-none placeholder:text-zinc-700"
+            className="bg-transparent text-white font-mono font-bold text-3xl leading-8 border-0 p-0 w-20 outline-none placeholder:text-zinc-700"
           />
         </FieldCard>
 
@@ -72,7 +72,7 @@ export default async function ConditionPage() {
             min="0"
             defaultValue={current?.weight_kg ?? ""}
             placeholder="68.4"
-            className="bg-transparent text-white font-mono font-bold text-3xl w-28 outline-none placeholder:text-zinc-700"
+            className="bg-transparent text-white font-mono font-bold text-3xl leading-8 border-0 p-0 w-28 outline-none placeholder:text-zinc-700"
           />
         </FieldCard>
 
