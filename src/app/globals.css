@@ -26,6 +26,11 @@
   select {
     caret-color: #f59e0b;
   }
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  a[href] {
+    cursor: pointer;
+  }
   *::-webkit-scrollbar {
     width: 0;
     height: 0;

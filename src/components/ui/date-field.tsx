@@ -63,7 +63,7 @@ export function DateField({
           setViewMonth(parseISO(selected));
           setOpen(true);
         }}
-        className="forge-card rounded-2xl p-4 w-full flex items-center justify-between text-left active:bg-zinc-900/50 transition"
+        className="forge-card rounded-2xl p-4 w-full flex items-center justify-between text-left cursor-pointer active:bg-zinc-900/50 transition"
       >
         <div>
           <div className="text-zinc-500 text-[10px] uppercase mb-1">날짜</div>
@@ -142,7 +142,7 @@ function CalendarModal({
             type="button"
             onClick={() => setViewMonth(addMonths(viewMonth, -1))}
             aria-label="이전 달"
-            className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 active:bg-zinc-800"
+            className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 cursor-pointer hover:bg-zinc-800 active:bg-zinc-800"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -153,7 +153,7 @@ function CalendarModal({
             type="button"
             onClick={() => setViewMonth(addMonths(viewMonth, 1))}
             aria-label="다음 달"
-            className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 active:bg-zinc-800"
+            className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 cursor-pointer hover:bg-zinc-800 active:bg-zinc-800"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -197,14 +197,16 @@ function CalendarModal({
                 onClick={() => onSelect(d)}
                 className={cn(
                   "aspect-square rounded-lg flex items-center justify-center text-sm font-mono transition",
+                  isFut
+                    ? "text-zinc-700 cursor-not-allowed"
+                    : "cursor-pointer",
                   isSel
                     ? "bg-amber-500 text-zinc-950 font-bold shadow-[0_0_14px_rgba(245,158,11,0.45)]"
                     : isTd
-                      ? "border border-amber-500/70 text-amber-400 font-bold"
-                      : isFut
-                        ? "text-zinc-700 cursor-not-allowed"
-                        : cn(
-                            "active:bg-zinc-800",
+                      ? "border border-amber-500/70 text-amber-400 font-bold hover:bg-amber-500/10"
+                      : !isFut &&
+                          cn(
+                            "hover:bg-zinc-800 active:bg-zinc-800",
                             dow === 5
                               ? "text-sky-400/80"
                               : dow === 6
@@ -224,21 +226,21 @@ function CalendarModal({
           <button
             type="button"
             onClick={() => onSelect(new Date())}
-            className="flex-1 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 py-2.5 rounded-xl active:bg-zinc-800"
+            className="flex-1 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 py-2.5 rounded-xl cursor-pointer hover:border-zinc-700 active:bg-zinc-800"
           >
             오늘
           </button>
           <button
             type="button"
             onClick={() => onSelect(subDays(new Date(), 1))}
-            className="flex-1 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 py-2.5 rounded-xl active:bg-zinc-800"
+            className="flex-1 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 py-2.5 rounded-xl cursor-pointer hover:border-zinc-700 active:bg-zinc-800"
           >
             어제
           </button>
           <button
             type="button"
             onClick={() => onSelect(subDays(new Date(), 2))}
-            className="flex-1 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 py-2.5 rounded-xl active:bg-zinc-800"
+            className="flex-1 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 py-2.5 rounded-xl cursor-pointer hover:border-zinc-700 active:bg-zinc-800"
           >
             그제
           </button>
