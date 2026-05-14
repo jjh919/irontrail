@@ -146,7 +146,7 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
           <SectionLabel>{sport === "weight" ? "측정" : "기본 측정"}</SectionLabel>
 
           {sport === "weight" ? (
-            <div className="space-y-2">
+            <div className="grid grid-cols-2 gap-2">
               <MetricField label="시간" suffix="h:mm">
                 <TextInput
                   name="duration"
@@ -154,14 +154,6 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
                   inputMode="decimal"
                 />
               </MetricField>
-              <div className="grid grid-cols-2 gap-2">
-                <MetricField label="세트 수" suffix="세트">
-                  <NumInput name="total_sets" placeholder="19" min="1" />
-                </MetricField>
-                <MetricField label="총 reps" suffix="회">
-                  <NumInput name="total_reps" placeholder="250" min="1" />
-                </MetricField>
-              </div>
               <MetricField label="총 볼륨" suffix="kg">
                 <NumInput
                   name="volume_kg"
@@ -169,6 +161,12 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
                   step="0.1"
                   min="0"
                 />
+              </MetricField>
+              <MetricField label="세트 수" suffix="세트">
+                <NumInput name="total_sets" placeholder="19" min="1" />
+              </MetricField>
+              <MetricField label="총 reps" suffix="회">
+                <NumInput name="total_reps" placeholder="250" min="1" />
               </MetricField>
             </div>
           ) : (
