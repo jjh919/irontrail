@@ -166,6 +166,10 @@ type WorkoutsRow = {
   avg_power_w: number | null;
   pool_length_m: number | null;
   stroke_style: string | null;
+  body_parts: string[] | null;
+  total_sets: number | null;
+  total_reps: number | null;
+  volume_kg: number | null;
   created_at: string;
   updated_at: string;
 };
@@ -192,6 +196,10 @@ type WorkoutsInsert = {
   avg_power_w?: number | null;
   pool_length_m?: number | null;
   stroke_style?: string | null;
+  body_parts?: string[] | null;
+  total_sets?: number | null;
+  total_reps?: number | null;
+  volume_kg?: number | null;
   created_at?: string;
   updated_at?: string;
 };

@@ -101,6 +101,15 @@ function pickSportFields(sport: Sport, fd: FormData): Partial<WorkoutInput> {
       avg_cadence: intOrNull(fd.get("avg_cadence")),
     };
   }
+  if (sport === "weight") {
+    const parts = fd.getAll("body_parts").map(String).filter(Boolean);
+    return {
+      body_parts: parts.length > 0 ? parts : null,
+      total_sets: intOrNull(fd.get("total_sets")),
+      total_reps: intOrNull(fd.get("total_reps")),
+      volume_kg: numOrNull(fd.get("volume_kg")),
+    };
+  }
   return {};
 }
 

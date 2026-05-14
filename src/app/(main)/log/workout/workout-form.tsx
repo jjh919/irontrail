@@ -25,11 +25,29 @@ const POOL_OPTIONS: Array<{ value: string; label: string }> = [
   { value: "open", label: "오픈워터" },
 ];
 
+const BODY_PARTS: Array<{ key: string; label: string }> = [
+  { key: "chest", label: "가슴" },
+  { key: "back", label: "등" },
+  { key: "shoulders", label: "어깨" },
+  { key: "biceps", label: "이두" },
+  { key: "triceps", label: "삼두" },
+  { key: "legs", label: "하체" },
+  { key: "core", label: "코어" },
+  { key: "full_body", label: "전신" },
+];
+
 export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
   const [sport, setSport] = useState<Sport>("bike");
   const [rpe, setRpe] = useState(5);
   const [poolLength, setPoolLength] = useState("");
   const [stroke, setStroke] = useState("");
+  const [bodyParts, setBodyParts] = useState<string[]>([]);
+
+  function toggleBodyPart(key: string) {
+    setBodyParts((prev) =>
+      prev.includes(key) ? prev.filter((p) => p !== key) : [...prev, key],
+    );
+  }
   const [state, formAction, isPending] = useActionState<SaveWorkoutState, FormData>(
     saveWorkout,
     undefined,
@@ -41,6 +59,9 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
       <input type="hidden" name="rpe" value={rpe} />
       <input type="hidden" name="pool_length_m" value={poolLength} />
       <input type="hidden" name="stroke_style" value={stroke} />
+      {bodyParts.map((p) => (
+        <input key={p} type="hidden" name="body_parts" value={p} />
+      ))}
 
       <div className="px-6 pt-8 pb-40 space-y-5">
         {/* Header */}
@@ -220,6 +241,46 @@ export function WorkoutForm({ defaultDate }: { defaultDate: string }) {
               <MetricField label="누적 고도" suffix="m">
                 <NumInput name="elevation_gain_m" placeholder="120" />
               </MetricField>
+            </div>
+          </section>
+        )}
+
+        {sport === "weight" && (
+          <section className="space-y-2">
+            <SectionLabel>웨이트 디테일</SectionLabel>
+
+            <ChipsCard label="부위 (복수 선택)" wrap>
+              {BODY_PARTS.map((p) => (
+                <Chip
+                  key={p.key}
+                  active={bodyParts.includes(p.key)}
+                  onClick={() => toggleBodyPart(p.key)}
+                >
+                  {p.label}
+                </Chip>
+              ))}
+            </ChipsCard>
+
+            <div className="grid grid-cols-2 gap-2">
+              <MetricField label="세트 수" suffix="세트">
+                <NumInput name="total_sets" placeholder="19" min="1" />
+              </MetricField>
+              <MetricField label="총 reps" suffix="회">
+                <NumInput name="total_reps" placeholder="250" min="1" />
+              </MetricField>
+            </div>
+
+            <MetricField label="총 볼륨" suffix="kg">
+              <NumInput
+                name="volume_kg"
+                placeholder="8521"
+                step="0.1"
+                min="0"
+              />
+            </MetricField>
+
+            <div className="text-zinc-600 text-[11px] px-1">
+              💡 다음 단계에서 운동 사진 업로드 → AI가 부위·세트·볼륨 자동 분석 예정
             </div>
           </section>
         )}
